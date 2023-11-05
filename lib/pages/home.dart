@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ituapp/pages/spotDescription.dart';
+import 'package:ituapp/pages/storage_handler.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,6 +13,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
+    final Storage storage = Storage();
     return MaterialApp(
         home: Scaffold(
             appBar: AppBar(
@@ -39,11 +41,26 @@ class _HomeScreenState extends State<HomeScreen> {
                 alignment: Alignment.center,
                 child: const Text('MAP'),
               ),
-              Container(
-                color: Colors.blue,
-                alignment: Alignment.center,
-                child: const Text('PROFILE'),
-              ),
+              FutureBuilder(future: storage.downloadUrl('spot1.jpg'),
+                builder: (BuildContext context, AsyncSnapshot <String> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done && snapshot.hasData)
+                  {
+                    return Container(
+                      width: 250,
+                      height: 250,
+                      child: Image.network(
+                        snapshot.data!,
+                        fit: BoxFit.cover,
+                      ));
+                  }
+                  if(snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData)
+                  {
+                    return CircularProgressIndicator();
+                  }
+                    return Container();
+                  },
+                ),
+              
             ][_currentIndex],
             bottomNavigationBar: NavigationBar(
               onDestinationSelected: (int index) {
