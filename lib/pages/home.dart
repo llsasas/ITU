@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ituapp/pages/profile_page.dart';
 import 'package:ituapp/pages/spotDescription.dart';
 import 'package:ituapp/pages/storage_handler.dart';
 
@@ -9,6 +10,8 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
+double displayed_items = 1.0;
+
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
   @override
@@ -18,49 +21,37 @@ class _HomeScreenState extends State<HomeScreen> {
         home: Scaffold(
             appBar: AppBar(
               title: const Text("Spot Center"),
+              actions: [
+                Slider(
+                    min: 0.0,
+                    max: 5.0,
+                    value: displayed_items.toDouble(),
+                    onChanged: (val) {
+                      setState(() {
+                        displayed_items = val;
+                      });
+                    })
+              ],
               centerTitle: true,
               backgroundColor: Colors.grey,
             ),
             body: <Widget>[
               Container(
-                color: Colors.grey.shade100,
-                padding: const EdgeInsets.all(30),
-                child: ListView(
-                    scrollDirection: Axis.vertical,
-                    padding: const EdgeInsets.all(10),
-                    children: const <Widget>[
-                      SpotCard(),
-                      SpotCard(),
-                      SpotCard(),
-                      SpotCard(),
-                      SpotCard()
-                    ]),
-              ),
+                  color: Colors.grey.shade100,
+                  padding: const EdgeInsets.all(30),
+                  child: ListView.builder(
+                      itemCount: displayed_items.toInt(),
+                      itemBuilder: (BuildContext context, int index) {
+                        return const SpotCard();
+                      })),
               Container(
                 color: Colors.blue,
                 alignment: Alignment.center,
                 child: const Text('MAP'),
               ),
-              FutureBuilder(future: storage.downloadUrl('spot1.jpg'),
-                builder: (BuildContext context, AsyncSnapshot <String> snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done && snapshot.hasData)
-                  {
-                    return Container(
-                      width: 250,
-                      height: 250,
-                      child: Image.network(
-                        snapshot.data!,
-                        fit: BoxFit.cover,
-                      ));
-                  }
-                  if(snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData)
-                  {
-                    return CircularProgressIndicator();
-                  }
-                    return Container();
-                  },
-                ),
-              
+              ProfilePage(
+                storage: storage,
+              ),
             ][_currentIndex],
             bottomNavigationBar: NavigationBar(
               onDestinationSelected: (int index) {
@@ -103,25 +94,26 @@ class SpotCard extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 30),
           color: const Color.fromARGB(255, 157, 161, 165),
           child: Center(
-            child:  FutureBuilder(future: storage.downloadUrl('spot1.jpg'),
-                builder: (BuildContext context, AsyncSnapshot <String> snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done && snapshot.hasData)
-                  {
-                    return Container(
+            child: FutureBuilder(
+              future: storage.downloadUrl('spot1.jpg'),
+              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.hasData) {
+                  return Container(
                       width: 250,
                       height: 250,
                       child: Image.network(
                         snapshot.data!,
                         fit: BoxFit.cover,
                       ));
-                  }
-                  if(snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData)
-                  {
-                    return CircularProgressIndicator();
-                  }
-                    return Container();
-                  },
-                ),
+                }
+                if (snapshot.connectionState == ConnectionState.waiting ||
+                    !snapshot.hasData) {
+                  return CircularProgressIndicator();
+                }
+                return Container();
+              },
+            ),
           ),
         ),
       ),
