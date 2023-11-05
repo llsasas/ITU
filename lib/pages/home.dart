@@ -9,6 +9,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,22 +19,40 @@ class _HomeScreenState extends State<HomeScreen> {
               centerTitle: true,
               backgroundColor: Colors.grey,
             ),
-            body: Container(
-              color: Colors.grey.shade100,
-              padding: const EdgeInsets.all(30),
-              child: ListView(
-                  scrollDirection: Axis.vertical,
-                  padding: const EdgeInsets.all(10),
-                  children: const <Widget>[
-                    SpotCard(),
-                    SpotCard(),
-                    SpotCard(),
-                    SpotCard(),
-                    SpotCard()
-                  ]),
-            ),
+            body: <Widget>[
+              Container(
+                color: Colors.grey.shade100,
+                padding: const EdgeInsets.all(30),
+                child: ListView(
+                    scrollDirection: Axis.vertical,
+                    padding: const EdgeInsets.all(10),
+                    children: const <Widget>[
+                      SpotCard(),
+                      SpotCard(),
+                      SpotCard(),
+                      SpotCard(),
+                      SpotCard()
+                    ]),
+              ),
+              Container(
+                color: Colors.blue,
+                alignment: Alignment.center,
+                child: const Text('MAP'),
+              ),
+              Container(
+                color: Colors.blue,
+                alignment: Alignment.center,
+                child: const Text('PROFILE'),
+              ),
+            ][_currentIndex],
             bottomNavigationBar: NavigationBar(
+              onDestinationSelected: (int index) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              },
               backgroundColor: Colors.grey,
+              selectedIndex: _currentIndex,
               destinations: const <Widget>[
                 NavigationDestination(icon: Icon(Icons.list), label: "Spoty"),
                 NavigationDestination(
