@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'pages/home.dart';
+import 'package:ituapp/pages/home.dart';
 
 void main() {
   runApp(const MainApp());
@@ -11,7 +10,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Home();
+    return const HomeScreen();
   }
 }
 
@@ -27,3 +26,19 @@ class Home extends StatelessWidget {
     );
   }
 }
+
+/*
+import 'package:firebase_core/firebase_core.dart';
+
+import 'firebase_options.dart';
+
+
+// ...
+
+
+await Firebase.initializeApp(
+
+    options: DefaultFirebaseOptions.currentPlatform,
+
+);
+*/
