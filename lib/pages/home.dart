@@ -90,6 +90,7 @@ class SpotCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Storage storage = Storage();
     return Card(
       child: InkWell(
         onTap: () {
@@ -101,7 +102,27 @@ class SpotCard extends StatelessWidget {
           height: 200,
           padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 30),
           color: const Color.fromARGB(255, 157, 161, 165),
-          child: Center(child: const Text("hello")),
+          child: Center(
+            child:  FutureBuilder(future: storage.downloadUrl('spot1.jpg'),
+                builder: (BuildContext context, AsyncSnapshot <String> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done && snapshot.hasData)
+                  {
+                    return Container(
+                      width: 250,
+                      height: 250,
+                      child: Image.network(
+                        snapshot.data!,
+                        fit: BoxFit.cover,
+                      ));
+                  }
+                  if(snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData)
+                  {
+                    return CircularProgressIndicator();
+                  }
+                    return Container();
+                  },
+                ),
+          ),
         ),
       ),
     );
