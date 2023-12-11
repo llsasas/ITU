@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     })
               ],
               centerTitle: true,
-              backgroundColor: Colors.grey,
+              backgroundColor: Colors.redAccent.shade700,
             ),
             body: <Widget>[
               Container(
@@ -59,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   _currentIndex = index;
                 });
               },
-              backgroundColor: Colors.grey,
+              backgroundColor: Colors.redAccent.shade700,
               selectedIndex: _currentIndex,
               destinations: const <Widget>[
                 NavigationDestination(icon: Icon(Icons.list), label: "Spoty"),
@@ -67,10 +67,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     icon: Icon(Icons.map_outlined),
                     selectedIcon: Icon(Icons.map),
                     label: "Mapa"),
+                     NavigationDestination(
+                    icon: Icon(Icons.calendar_month_outlined),
+                    selectedIcon: Icon(Icons.calendar_month_rounded),
+                    label: "Kalendář"),
                 NavigationDestination(
                     icon: Icon(Icons.person_2_outlined),
                     selectedIcon: Icon(Icons.person_2),
                     label: "Profil")
+                   
               ],
             )));
   }
