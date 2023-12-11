@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ituapp/pages/profile_page.dart';
 import 'package:ituapp/pages/spotDescription.dart';
 import 'package:ituapp/pages/storage_handler.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -48,6 +49,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.blue,
                 alignment: Alignment.center,
                 child: const Text('MAP'),
+              ),
+              Container(
+                child: TableCalendar(
+                  focusedDay: DateTime.now(),
+                  headerStyle: HeaderStyle(formatButtonVisible: false,titleCentered: true),
+                  firstDay: DateTime.utc(2018,1,1),
+                  lastDay: DateTime.utc(2035,12,12),
+                ),
               ),
               ProfilePage(
                 storage: storage,
