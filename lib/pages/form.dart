@@ -77,3 +77,24 @@ class FormWidget extends StatelessWidget
     );
   }
 }
+
+
+// TODO ADD functionality to OnPressed, new window should be opened 
+class AddSpotButton extends StatelessWidget
+{
+  @override
+  Widget build(BuildContext context)
+  {
+    return const RawMaterialButton(
+      onPressed: null,
+      elevation: 2.0,
+      fillColor: Colors.white,
+        padding: EdgeInsets.all(15.0),
+        shape: CircleBorder(),
+      child: Icon(
+        Icons.add_rounded, 
+        size: 35.0,
+        ),
+      );
+  }
+}
