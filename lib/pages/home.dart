@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ituapp/pages/profile_page.dart';
 import 'package:ituapp/pages/spotDescription.dart';
 import 'package:ituapp/pages/storage_handler.dart';
+import 'package:ituapp/pages/custom_widgets.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -51,12 +52,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: const Text('MAP'),
               ),
               Container(
-                child: TableCalendar(
+                child: TableEvents(),
+                /*TableCalendar(
                   focusedDay: DateTime.now(),
                   headerStyle: HeaderStyle(formatButtonVisible: false,titleCentered: true),
                   firstDay: DateTime.utc(2018,1,1),
                   lastDay: DateTime.utc(2035,12,12),
-                ),
+                ),*/
               ),
               ProfilePage(
                 storage: storage,
@@ -87,50 +89,5 @@ class _HomeScreenState extends State<HomeScreen> {
                    
               ],
             )));
-  }
-}
-
-class SpotCard extends StatelessWidget {
-  const SpotCard({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final Storage storage = Storage();
-    return Card(
-      child: InkWell(
-        onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const SpotDescription()));
-        },
-        child: Container(
-          width: 350,
-          height: 200,
-          padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 30),
-          color: const Color.fromARGB(255, 157, 161, 165),
-          child: Center(
-            child: FutureBuilder(
-              future: storage.downloadUrl('spot1.jpg'),
-              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                if (snapshot.connectionState == ConnectionState.done &&
-                    snapshot.hasData) {
-                  return Container(
-                      width: 250,
-                      height: 250,
-                      child: Image.network(
-                        snapshot.data!,
-                        fit: BoxFit.cover,
-                      ));
-                }
-                if (snapshot.connectionState == ConnectionState.waiting ||
-                    !snapshot.hasData) {
-                  return CircularProgressIndicator();
-                }
-                return Container();
-              },
-            ),
-          ),
-        ),
-      ),
-    );
   }
 }
