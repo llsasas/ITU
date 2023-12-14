@@ -85,7 +85,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Chat(),
               ProfilePage(
-                storage: storage,
               ),
             ][_currentIndex],
             bottomNavigationBar: NavigationBar(
