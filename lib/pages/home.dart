@@ -81,16 +81,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     selectedIcon: Icon(Icons.map),
                     label: "Mapa"),
                 NavigationDestination(
-                    icon: Icon(Icons.calendar_month_outlined),
-                    selectedIcon: Icon(Icons.calendar_month_rounded),
+                    icon: Icon(Icons.calendar_month_outlined,color: Colors.white,),
+                    selectedIcon: Icon(Icons.calendar_month_rounded,color: Colors.white,),
                     label: "Kalendář"),
                 NavigationDestination(
-                    icon: Icon(Icons.chat_outlined),
-                    selectedIcon: Icon(Icons.chat),
+                    icon: Icon(Icons.chat_outlined,color: Colors.white,),
+                    selectedIcon: Icon(Icons.chat,color: Colors.white,),
                     label: "Chat"),
                 NavigationDestination(
-                    icon: Icon(Icons.person_2_outlined),
-                    selectedIcon: Icon(Icons.person_2),
+                    icon: Icon(Icons.person_2_outlined, color: Colors.white,),
+                    selectedIcon: Icon(Icons.person_2,color: Colors.white,),
                     label: "Profil")
               ],
             )));
