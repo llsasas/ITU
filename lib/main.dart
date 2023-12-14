@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ituapp/firebase_options.dart';
 import 'package:ituapp/pages/home.dart';
+import 'package:ituapp/auth.dart';
+import 'package:ituapp/widget_tree.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-void main() async{
+Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MainApp());
@@ -15,7 +17,13 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const HomeScreen();
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.orange,
+      ),
+      home: const WidgetTree(),
+    );
   }
 }
 

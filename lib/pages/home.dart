@@ -3,7 +3,9 @@ import 'package:ituapp/pages/profile_page.dart';
 import 'package:ituapp/pages/spotDescription.dart';
 import 'package:ituapp/pages/storage_handler.dart';
 import 'package:ituapp/pages/custom_widgets.dart';
+import 'package:ituapp/auth.dart';
 import 'package:ituapp/pages/chat.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,6 +19,16 @@ double displayed_items = 1.0;
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
+  final User? user = Auth().currentUser;
+
+  Future<void> signOut()async{
+    await Auth().signOut();
+  }
+  Widget _signOutButt()
+  {
+    return ElevatedButton(onPressed: signOut,
+     child: const Text('Sign out'));
+  }
   @override
   Widget build(BuildContext context) {
     final Storage storage = Storage();
@@ -24,7 +36,8 @@ class _HomeScreenState extends State<HomeScreen> {
         home: Scaffold(
             appBar: AppBar(
               title: const Text("Spot Center"),
-              actions: [
+              actions: [_signOutButt(),
+                /*
                 Slider(
                     min: 0.0,
                     max: 5.0,
@@ -33,7 +46,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       setState(() {
                         displayed_items = val;
                       });
-                    })
+                    })*/
+
               ],
               centerTitle: true,
               backgroundColor: Colors.redAccent.shade700,
