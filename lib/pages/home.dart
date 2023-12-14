@@ -26,7 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
   Widget _signOutButt()
   {
-    return ElevatedButton(onPressed: signOut,
+    return ElevatedButton(
+      onPressed: signOut,
      child: const Text('Sign out'));
   }
   @override

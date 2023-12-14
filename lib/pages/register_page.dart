@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ituapp/pages/databasehandler.dart';
 import '../auth.dart';
 
 class LoginPage extends StatefulWidget
@@ -16,6 +17,7 @@ class _LoginPageState extends State<LoginPage>
 
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
+  final TextEditingController _controllerUsername= TextEditingController();
 
   Future<void> signInWithEmailAndPassword() async {
     try{
