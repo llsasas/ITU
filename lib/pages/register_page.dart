@@ -3,82 +3,103 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ituapp/pages/databasehandler.dart';
 import '../auth.dart';
 
-class LoginPage extends StatefulWidget
-{
-  const LoginPage({Key ? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage>
-{
-  String ? errorMessage = '';
+class _LoginPageState extends State<LoginPage> {
+  String? errorMessage = '';
   bool isLogin = true;
 
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
-  final TextEditingController _controllerUsername= TextEditingController();
+  final TextEditingController _controllerUsername = TextEditingController();
 
   Future<void> signInWithEmailAndPassword() async {
-    try{
-      await Auth().signInWithEmailAndPassword(email: _controllerEmail.text, password: _controllerPassword.text);
-    }
-    on FirebaseAuthException catch(e)
-    {
+    try {
+      await Auth().signInWithEmailAndPassword(
+          email: _controllerEmail.text, password: _controllerPassword.text);
+    } on FirebaseAuthException catch (e) {
       setState(() {
         errorMessage = e.message;
       });
     }
   }
 
-    Future<void> createUserWithEmailAndPassword() async {
-    try{
-      await Auth().createUserWithEmailAndPassword(email: _controllerEmail.text, password: _controllerPassword.text);
-    }
-    on FirebaseAuthException catch(e)
-    {
+  Future<void> createUserWithEmailAndPassword() async {
+    try {
+      await Auth().createUserWithEmailAndPassword(
+          email: _controllerEmail.text, password: _controllerPassword.text);
+    } on FirebaseAuthException catch (e) {
       setState(() {
         errorMessage = e.message;
       });
     }
   }
 
-  Widget _title(){
+  Future<void> add_username() async
+  {
+    //String email = _controllerEmail.text;
+    try
+    {
+    DatabaseHandler().dataWrite('/users',_controllerEmail.text);
+    }  catch(e){
+      setState(() {
+        errorMessage = e as String?;
+      });
+    }
+    //DatabaseHandler().dataWrite('/users/$email', _controllerUsername.text);
+  }
+
+  Widget _title() {
     return const Text("Authentication");
   }
 
-  Widget _entryField(String title, TextEditingController controller,)
-  {
-    return TextField(controller: controller,decoration: InputDecoration(labelText: title),);
+  Widget _entryField(
+    String title,
+    TextEditingController controller,
+  ) {
+    return TextField(
+      controller: controller,
+      decoration: InputDecoration(labelText: title),
+    );
   }
 
-
-  Widget _errorMessage()
-  {
-    return Text(errorMessage == '' ?  '': 'Humm ? $errorMessage');
+  Widget _errorMessage() {
+    return Text(errorMessage == '' ? '' : 'Humm ? $errorMessage');
   }
 
-  Widget _submitButton()
-  {
+  Widget _submitButton() {
     return ElevatedButton(
-      onPressed: 
-        isLogin ? signInWithEmailAndPassword : createUserWithEmailAndPassword,
-        child: Text(isLogin? 'Login' : 'Register'));
+        onPressed: ()
+        {
+          if(isLogin)
+          {
+            signInWithEmailAndPassword();
+          }
+          else
+          {
+            add_username();
+            createUserWithEmailAndPassword();
+          }
+        },
+        child: Text(isLogin ? 'Login' : 'Register'));
   }
 
-  Widget _loginOrRegister()
-  {
+  Widget _loginOrRegister() {
     return TextButton(
-      onPressed: (){
-        setState(() {
-          isLogin = ! isLogin;
-        });
-      },
-       child: Text(isLogin! ? 'Register instead' : 'Login instead'));
+        onPressed: () {
+          setState(() {
+            isLogin = !isLogin;
+          });
+        },
+        child: Text(isLogin! ? 'Register instead' : 'Login instead'));
   }
+
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: _title(),
@@ -92,6 +113,7 @@ class _LoginPageState extends State<LoginPage>
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             _entryField('email', _controllerEmail),
+            _entryField('username', _controllerUsername),
             _entryField('password', _controllerPassword),
             _errorMessage(),
             _submitButton(),

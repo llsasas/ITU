@@ -2,16 +2,9 @@ import 'package:firebase_database/firebase_database.dart';
 
 
 class DatabaseHandler {
-  final DatabaseReference _database = FirebaseDatabase.instance.reference();
-  static final DatabaseHandler _instance = DatabaseHandler._internal();
+  final DatabaseReference _database = FirebaseDatabase.instance.ref();
 
-  factory DatabaseHandler() {
-    return _instance;
-  }
-
-  DatabaseHandler._internal();
-
-  void dataWrite(String key, Map<String, String> values) {
+  void dataWrite(String key, String values) {
     final instance = _database.child(key);
     instance.set(values);
   }
