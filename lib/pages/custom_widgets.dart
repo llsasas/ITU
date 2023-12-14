@@ -150,23 +150,47 @@ class AddSpotButton extends StatelessWidget
 
 
 //Add functionality to onpressed
-class AddEventButton extends StatelessWidget
-{
+class AddEventButton extends StatelessWidget {
   @override
-  Widget build(BuildContext context)
-  {
-    return const RawMaterialButton(
-      onPressed: null,
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      onPressed: () {
+        // Zde zavoláte funkci pro otevření nového okna
+        _openNewWindow(context);
+      },
       elevation: 2.0,
       fillColor: Colors.white,
-        padding: EdgeInsets.all(15.0),
-        shape: CircleBorder(),
-      child:  Icon(
-        Icons.add_sharp, 
-          size: 35.00,
-          color: Colors.red,
-        ),
-      );
+      padding: EdgeInsets.all(15.0),
+      shape: CircleBorder(),
+      child: const Icon(
+        Icons.add_sharp,
+        size: 35.0,
+        color: Colors.red,
+      ),
+    );
+  }
+
+  void _openNewWindow(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // Zde vrátíte widget, který bude obsahovat obsah nového okna
+        return AlertDialog(
+          title: Text("Add event"),
+          content: Text("Obsah nového okna zde."),
+          contentPadding: EdgeInsets.all(200.0),
+          actions: [
+            TextButton(
+              onPressed: () {
+                // Zde můžete definovat akci po stisknutí tlačítka v novém okně
+                Navigator.of(context).pop(); // Zavře nové okno
+              },
+              child: Text("Zavřít"),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 
@@ -285,7 +309,6 @@ class TableEventsState extends State<TableEvents>
             startingDayOfWeek: StartingDayOfWeek.monday,
             calendarStyle: 
             const CalendarStyle(
-              // Use `CalendarStyle` to customize the UI
               outsideDaysVisible: false,
             ),
             onDaySelected: _onDaySelected,

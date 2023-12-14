@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-double displayed_items = 1.0;
+double displayed_items = 10.0;
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
@@ -28,6 +28,9 @@ class _HomeScreenState extends State<HomeScreen> {
   {
     return ElevatedButton(
       onPressed: signOut,
+      style: ElevatedButton.styleFrom(
+      backgroundColor: Colors.redAccent.shade700, // Změňte tuto barvu podle svých potřeb
+  ),
      child: const Text('Sign out'));
   }
   @override
@@ -36,7 +39,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return MaterialApp(
         home: Scaffold(
             appBar: AppBar(
-              title: const Text("Spot Center"),
+              title: const Text("Spot Center",
+               style: TextStyle(
+                fontWeight: FontWeight.normal, 
+                fontSize: 40.0, 
+              ),),
               actions: [_signOutButt(),
                 /*
                 Slider(
