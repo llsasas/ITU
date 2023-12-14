@@ -3,6 +3,7 @@ import 'package:ituapp/pages/profile_page.dart';
 import 'package:ituapp/pages/spotDescription.dart';
 import 'package:ituapp/pages/storage_handler.dart';
 import 'package:ituapp/pages/custom_widgets.dart';
+import 'package:ituapp/pages/chat.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -51,15 +52,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 alignment: Alignment.center,
                 child: const Text('MAP'),
               ),
-              Container(
-                child: TableEvents(),
-                /*TableCalendar(
-                  focusedDay: DateTime.now(),
-                  headerStyle: HeaderStyle(formatButtonVisible: false,titleCentered: true),
-                  firstDay: DateTime.utc(2018,1,1),
-                  lastDay: DateTime.utc(2035,12,12),
-                ),*/
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    child: AddEventButton(),
+                  ),
+                  TableEvents()
+                ],
               ),
+              Chat(),
               ProfilePage(
                 storage: storage,
               ),
@@ -78,15 +80,18 @@ class _HomeScreenState extends State<HomeScreen> {
                     icon: Icon(Icons.map_outlined),
                     selectedIcon: Icon(Icons.map),
                     label: "Mapa"),
-                     NavigationDestination(
+                NavigationDestination(
                     icon: Icon(Icons.calendar_month_outlined),
                     selectedIcon: Icon(Icons.calendar_month_rounded),
                     label: "Kalendář"),
                 NavigationDestination(
+                    icon: Icon(Icons.chat_outlined),
+                    selectedIcon: Icon(Icons.chat),
+                    label: "Chat"),
+                NavigationDestination(
                     icon: Icon(Icons.person_2_outlined),
                     selectedIcon: Icon(Icons.person_2),
                     label: "Profil")
-                   
               ],
             )));
   }

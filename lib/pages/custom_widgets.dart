@@ -148,6 +148,28 @@ class AddSpotButton extends StatelessWidget
   }
 }
 
+
+//Add functionality to onpressed
+class AddEventButton extends StatelessWidget
+{
+  @override
+  Widget build(BuildContext context)
+  {
+    return const RawMaterialButton(
+      onPressed: null,
+      elevation: 2.0,
+      fillColor: Colors.white,
+        padding: EdgeInsets.all(15.0),
+        shape: CircleBorder(),
+      child:  Icon(
+        Icons.add_sharp, 
+          size: 35.00,
+          color: Colors.red,
+        ),
+      );
+  }
+}
+
 class TableEvents extends StatefulWidget {
   @override
   TableEventsState createState() => TableEventsState();
