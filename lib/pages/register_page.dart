@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ituapp/pages/databasehandler.dart';
+import 'package:ituapp/BE/Users.dart';
 import '../auth.dart';
 
 class LoginPage extends StatefulWidget {
@@ -16,6 +17,8 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
   final TextEditingController _controllerUsername = TextEditingController();
+  final TextEditingController _controllername = TextEditingController();
+  final TextEditingController _controllersurname = TextEditingController();
 
   Future<void> signInWithEmailAndPassword() async {
     try {
@@ -39,18 +42,13 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  Future<void> add_username() async
-  {
+  Future<void> add_userinfo() async {
     //String email = _controllerEmail.text;
-    try
-    {
-    DatabaseHandler().dataWrite('/users',_controllerEmail.text);
-    }  catch(e){
-      setState(() {
-        errorMessage = e as String?;
-      });
-    }
-    //DatabaseHandler().dataWrite('/users/$email', _controllerUsername.text);
+    appusers.add(AppUsers(
+        email: _controllerEmail.text,
+        username: _controllerUsername.text,
+        name: _controllername.text,
+        surname: _controllersurname.text));
   }
 
   Widget _title() {
@@ -73,16 +71,12 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _submitButton() {
     return ElevatedButton(
-        onPressed: ()
-        {
-          if(isLogin)
-          {
+        onPressed: () {
+          if (isLogin) {
             signInWithEmailAndPassword();
-          }
-          else
-          {
-            add_username();
+          } else {
             createUserWithEmailAndPassword();
+            add_userinfo();
           }
         },
         child: Text(isLogin ? 'Login' : 'Register'));
@@ -112,9 +106,11 @@ class _LoginPageState extends State<LoginPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            _entryField('email', _controllerEmail),
-            _entryField('username', _controllerUsername),
-            _entryField('password', _controllerPassword),
+            _entryField('Email', _controllerEmail),
+            if (!isLogin) _entryField('Username', _controllerUsername),
+            if (!isLogin) _entryField('Name', _controllerUsername),
+            if (!isLogin) _entryField('Surname', _controllerUsername),
+            _entryField('Password', _controllerPassword),
             _errorMessage(),
             _submitButton(),
             _loginOrRegister(),
