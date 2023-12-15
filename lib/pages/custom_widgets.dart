@@ -1,6 +1,7 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:ituapp/pages/storage_handler.dart';
+import 'package:ituapp/Widgets/spotform.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:ituapp/pages/spotDescription.dart';
@@ -8,76 +9,34 @@ import 'package:flutter_calendar_carousel/classes/event_list.dart';
 
 final _formkey = GlobalKey<FormState>();
 
-class FilePickerButton extends StatelessWidget
-{
+class FilePickerButton extends StatelessWidget {
   @override
- Widget build(BuildContext context) {
-  final Storage storage = Storage();
-  return Center(
-    child: ElevatedButton(
-      onPressed:() async {
-        final result = await FilePicker.platform.pickFiles(
-          allowMultiple: false,
-          type: FileType.custom,
-          allowedExtensions: ['png', 'jpg'],
-        );
-
-        if (result == null)
-        {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("No file selected"),   
-            ),
+  Widget build(BuildContext context) {
+    final Storage storage = Storage();
+    return Center(
+      child: ElevatedButton(
+        onPressed: () async {
+          final result = await FilePicker.platform.pickFiles(
+            allowMultiple: false,
+            type: FileType.custom,
+            allowedExtensions: ['png', 'jpg'],
           );
-          return null;
-        }
 
-        final path = result.files.single.path!;
-        final filename = result.files.single.name;
-        storage.uploadFile(path, filename);
-    }, 
-    child: const Text('Choose a picture'),
-    ),
-    
-  );
-}
-}
-
-class FormWidget extends StatelessWidget
-{
-  const FormWidget({Key? key}) : super (key: key);
-  @override
-  Widget build(BuildContext context)
-  {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Form(
-        key: _formkey,
-        child: Column(
-          children: [
-            TextFormField(
-              decoration: const InputDecoration(
-                icon: Icon(Icons.place),
-                labelText: "Název spotu",
+          if (result == null) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("No file selected"),
               ),
-              validator: (value) {
-                if(value == null || value.isEmpty)
-                {
-                  return "Invalid input typed";
-                }
-                return null;
-              },
-            ),
-            ElevatedButton(
-              onPressed: ()
-              {
-                if(_formkey.currentState!.validate()) {
+            );
+            return null;
+          }
 
-                }
-              }, child: const Text("Přidat spot")
-              ),
-          ],
-        ),
-       ),
+          final path = result.files.single.path!;
+          final filename = result.files.single.name;
+          storage.uploadFile(path, filename);
+        },
+        child: const Text('Choose a picture'),
+      ),
     );
   }
 }
@@ -127,30 +86,45 @@ class SpotCard extends StatelessWidget {
   }
 }
 
-
-// TODO ADD functionality to OnPressed, new window should be opened 
-class AddSpotButton extends StatelessWidget
-{
+// TODO ADD functionality to OnPressed, new window should be opened
+class AddSpotButton extends StatelessWidget {
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     return const RawMaterialButton(
       onPressed: null,
       elevation: 2.0,
       fillColor: Colors.white,
-        padding: EdgeInsets.all(15.0),
-        shape: CircleBorder(),
+      padding: EdgeInsets.all(15.0),
+      shape: CircleBorder(),
       child: Icon(
-        Icons.add_rounded, 
+        Icons.add_rounded,
         size: 35.0,
-        ),
-      );
+      ),
+    );
   }
 }
 
-
 //Add functionality to onpressed
 class AddEventButton extends StatelessWidget {
+  FormWidget localf = FormWidget();
+  final TextEditingController _controllername = TextEditingController();
+  final TextEditingController _controlleraddress = TextEditingController();
+  final TextEditingController _controllerdescription = TextEditingController();
+
+  Widget _entryField(
+    String title,
+    TextEditingController controller,
+  ) {
+    return TextField(
+      controller: controller,
+      decoration: InputDecoration(labelText: title),
+    );
+  }
+
+  void add() {
+    print('hello');
+  }
+
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
@@ -174,18 +148,27 @@ class AddEventButton extends StatelessWidget {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        // Zde vrátíte widget, který bude obsahovat obsah nového okna
-        return AlertDialog(
+        return SimpleDialog(
           title: const Text("Add event"),
-          content: const Text("Obsah nového okna zde."),
-          contentPadding: const EdgeInsets.all(200.0),
-          actions: [
+         // contentPadding: const EdgeInsets.all(200.0),
+          children: <Widget>[
+            _entryField('Name', _controllername),
+            _entryField('Adress', _controlleraddress),
+            _entryField('Description', _controllerdescription),
+            TextButton(
+              onPressed: () {
+                // Zde můžete definovat akci po stisknutí tlačítka v novém okně
+                add();
+                Navigator.of(context).pop(); // Zavře nové okno
+              },
+              child: const Text("Add spot"),
+            ),
             TextButton(
               onPressed: () {
                 // Zde můžete definovat akci po stisknutí tlačítka v novém okně
                 Navigator.of(context).pop(); // Zavře nové okno
               },
-              child: const Text("Zavřít"),
+              child: const Text("Close"),
             ),
           ],
         );
@@ -199,12 +182,11 @@ class TableEvents extends StatefulWidget {
   TableEventsState createState() => TableEventsState();
 }
 
-class TableEventsState extends State<TableEvents>
-{
+class TableEventsState extends State<TableEvents> {
   late final ValueNotifier<List<Event>> _selectedEvents;
   CalendarFormat _calendarFormat = CalendarFormat.month;
   RangeSelectionMode _rangeSelectionMode = RangeSelectionMode
-  .toggledOff; // Can be toggled on/off by longpressing a date
+      .toggledOff; // Can be toggled on/off by longpressing a date
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
   DateTime? _rangeStart;
@@ -224,22 +206,19 @@ class TableEventsState extends State<TableEvents>
     super.dispose();
   }
 
-
-
   //TODO potreba doimplementovat napojeni na BE
-  
+
   List<Event> _getEventsForDay(DateTime day) {
     // Implementation example
     return [];
   }
 
-  List<DateTime> daysInRange(DateTime first, DateTime last) 
-  {
-  final dayCount = last.difference(first).inDays + 1;
-  return List.generate(
-    dayCount,
-    (index) => DateTime.utc(first.year, first.month, first.day + index),
-  );
+  List<DateTime> daysInRange(DateTime first, DateTime last) {
+    final dayCount = last.difference(first).inDays + 1;
+    return List.generate(
+      dayCount,
+      (index) => DateTime.utc(first.year, first.month, first.day + index),
+    );
   }
 
   //TODO nefunkcni, potreba dodelat napojeni na BE
@@ -267,10 +246,8 @@ class TableEventsState extends State<TableEvents>
     }
   }
 
-  void _onRangeSelected(DateTime? start, DateTime? end, DateTime focusedDay)
-   {
-    setState(() 
-    {
+  void _onRangeSelected(DateTime? start, DateTime? end, DateTime focusedDay) {
+    setState(() {
       _selectedDay = null;
       _focusedDay = focusedDay;
       _rangeStart = start;
@@ -279,52 +256,43 @@ class TableEventsState extends State<TableEvents>
     });
 
     // `start` or `end` could be null
-    if (start != null && end != null) 
-    {
+    if (start != null && end != null) {
       _selectedEvents.value = _getEventsForRange(start, end);
-    }
-    else if (start != null) 
-    {
+    } else if (start != null) {
       _selectedEvents.value = _getEventsForDay(start);
-    }
-    else if (end != null) 
-    {
+    } else if (end != null) {
       _selectedEvents.value = _getEventsForDay(end);
     }
   }
-  
+
   @override
-  Widget build(BuildContext context) 
-  {
+  Widget build(BuildContext context) {
     return TableCalendar<Event>(
-            firstDay: DateTime.utc(2018,1,1),
-            lastDay: DateTime.utc(2035,12,12),
-            focusedDay: _focusedDay,
-            selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-            rangeStartDay: _rangeStart,
-            rangeEndDay: _rangeEnd,
-            calendarFormat: _calendarFormat,
-            rangeSelectionMode: _rangeSelectionMode,
-            eventLoader: _getEventsForDay,
-            startingDayOfWeek: StartingDayOfWeek.monday,
-            calendarStyle: 
-            const CalendarStyle(
-              outsideDaysVisible: false,
-            ),
-            onDaySelected: _onDaySelected,
-            onRangeSelected: _onRangeSelected,
-            onFormatChanged: (format) {
-              if (_calendarFormat != format) {
-                setState(() {
-                  _calendarFormat = format;
-                });
-              }
-            },
-            onPageChanged: (focusedDay) {
-              _focusedDay = focusedDay;
-            },
-          );
+      firstDay: DateTime.utc(2018, 1, 1),
+      lastDay: DateTime.utc(2035, 12, 12),
+      focusedDay: _focusedDay,
+      selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+      rangeStartDay: _rangeStart,
+      rangeEndDay: _rangeEnd,
+      calendarFormat: _calendarFormat,
+      rangeSelectionMode: _rangeSelectionMode,
+      eventLoader: _getEventsForDay,
+      startingDayOfWeek: StartingDayOfWeek.monday,
+      calendarStyle: const CalendarStyle(
+        outsideDaysVisible: false,
+      ),
+      onDaySelected: _onDaySelected,
+      onRangeSelected: _onRangeSelected,
+      onFormatChanged: (format) {
+        if (_calendarFormat != format) {
+          setState(() {
+            _calendarFormat = format;
+          });
+        }
+      },
+      onPageChanged: (focusedDay) {
+        _focusedDay = focusedDay;
+      },
+    );
   }
-
-
 }
