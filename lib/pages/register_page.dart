@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:ituapp/pages/databasehandler.dart';
 import 'package:ituapp/BE/Users.dart';
 import '../auth.dart';
 
