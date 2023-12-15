@@ -25,7 +25,7 @@ class SpotDescription extends StatelessWidget {
                   }
                   if(snapshot.connectionState == ConnectionState.waiting || !snapshot.hasData)
                   {
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   }
                     return Container();
                   },

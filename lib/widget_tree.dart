@@ -20,10 +20,10 @@ class _WidgetTreeState extends State<WidgetTree>
      builder: (context, snapshot) {
        if(snapshot.hasData)
        {
-        return HomeScreen();
+        return const HomeScreen();
        }
        else{
-        return LoginPage();
+        return const LoginPage();
        }
      },);
   }

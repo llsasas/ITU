@@ -115,7 +115,7 @@ class SpotCard extends StatelessWidget {
                 }
                 if (snapshot.connectionState == ConnectionState.waiting ||
                     !snapshot.hasData) {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 }
                 return Container();
               },
@@ -160,8 +160,8 @@ class AddEventButton extends StatelessWidget {
       },
       elevation: 2.0,
       fillColor: Colors.white,
-      padding: EdgeInsets.all(15.0),
-      shape: CircleBorder(),
+      padding: const EdgeInsets.all(15.0),
+      shape: const CircleBorder(),
       child: const Icon(
         Icons.add_sharp,
         size: 35.0,
@@ -176,16 +176,16 @@ class AddEventButton extends StatelessWidget {
       builder: (BuildContext context) {
         // Zde vrátíte widget, který bude obsahovat obsah nového okna
         return AlertDialog(
-          title: Text("Add event"),
-          content: Text("Obsah nového okna zde."),
-          contentPadding: EdgeInsets.all(200.0),
+          title: const Text("Add event"),
+          content: const Text("Obsah nového okna zde."),
+          contentPadding: const EdgeInsets.all(200.0),
           actions: [
             TextButton(
               onPressed: () {
                 // Zde můžete definovat akci po stisknutí tlačítka v novém okně
                 Navigator.of(context).pop(); // Zavře nové okno
               },
-              child: Text("Zavřít"),
+              child: const Text("Zavřít"),
             ),
           ],
         );
