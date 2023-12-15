@@ -20,10 +20,10 @@ class ProfilePage extends StatelessWidget {
     
     
     return Scaffold(
-      backgroundColor: Color.fromRGBO(238, 230, 230, 1),
+      backgroundColor: const Color.fromRGBO(238, 230, 230, 1),
       
       body: Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: <Widget>[
             const Padding(
@@ -37,7 +37,7 @@ class ProfilePage extends StatelessWidget {
                   future: storage.downloadUrl("fun.jpg"),
                   builder: (BuildContext context, AsyncSnapshot <String> snapshot) {
                     if(snapshot.connectionState == ConnectionState.waiting){
-                      return CircularProgressIndicator();
+                      return const CircularProgressIndicator();
                     }else if(snapshot.hasError){
                       return Text("Error: ${snapshot.error}");
                     }else{

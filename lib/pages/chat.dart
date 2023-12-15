@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:ituapp/BE/ChatUsers.dart';
+import 'package:ituapp/Widgets/conversation_list.dart';
+
 
 class Chat extends StatefulWidget {
   @override
@@ -26,8 +29,8 @@ class _ChatState extends State<Chat> {
                           TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                     ),
                     Container(
-                      padding:
-                          const EdgeInsets.only(left: 8, right: 8, top: 2, bottom: 2),
+                      padding: const EdgeInsets.only(
+                          left: 8, right: 8, top: 2, bottom: 2),
                       height: 30,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30),
@@ -74,6 +77,21 @@ class _ChatState extends State<Chat> {
                       borderSide: BorderSide(color: Colors.grey.shade100)),
                 ),
               ),
+            ),
+             ListView.builder(
+              itemCount: chatUsers.length,
+              shrinkWrap: true,
+              padding: const EdgeInsets.only(top: 16),
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return ChatList(
+                  name: chatUsers[index].name,
+                  msg: chatUsers[index].message,
+                  imagelink: chatUsers[index].imagelink,
+                  time: chatUsers[index].time,
+                  read: (index == 0 || index == 3) ? true : false,
+                );
+              },
             ),
           ],
         ),
