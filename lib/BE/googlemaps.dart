@@ -13,7 +13,6 @@ class MapSample extends StatefulWidget {
 class MapSampleState extends State<MapSample> {
   Completer<GoogleMapController> _controller = Completer();
   TextEditingController _originController = TextEditingController();
-  TextEditingController _destinationController = TextEditingController();
 
   Set<Marker> _markers = Set<Marker>();
   Set<Polygon> _polygons = Set<Polygon>();
@@ -23,8 +22,8 @@ class MapSampleState extends State<MapSample> {
   int _polygonIdCounter = 1;
   int _polylineIdCounter = 1;
 
-  static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
+  static const CameraPosition _Brno = CameraPosition(
+    target: LatLng(49.195061, 16.606836),
     zoom: 14.4746,
   );
 
@@ -32,14 +31,14 @@ class MapSampleState extends State<MapSample> {
   void initState() {
     super.initState();
 
-    _setMarker(LatLng(37.42796133580664, -122.085749655962));
+    //_setMarker(const LatLng(37.42796133580664, -122.085749655962));
   }
 
   void _setMarker(LatLng point) {
     setState(() {
       _markers.add(
         Marker(
-          markerId: MarkerId('marker'),
+          markerId: const MarkerId('marker'),
           position: point,
         ),
       );
@@ -81,9 +80,6 @@ class MapSampleState extends State<MapSample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Google Maps'),
-      ),
       body: Column(
         children: [
           Row(
@@ -93,14 +89,7 @@ class MapSampleState extends State<MapSample> {
                   children: [
                     TextFormField(
                       controller: _originController,
-                      decoration: InputDecoration(hintText: ' Origin'),
-                      onChanged: (value) {
-                        print(value);
-                      },
-                    ),
-                    TextFormField(
-                      controller: _destinationController,
-                      decoration: InputDecoration(hintText: ' Destination'),
+                      decoration: const InputDecoration(hintText: 'Search'),
                       onChanged: (value) {
                         print(value);
                       },
@@ -110,20 +99,13 @@ class MapSampleState extends State<MapSample> {
               ),
               IconButton(
                 onPressed: () async {
-                  var directions = await LocationService().getDirections(
-                    _originController.text,
-                    _destinationController.text,
-                  );
-                  _goToPlace(
-                    directions['start_location']['lat'],
-                    directions['start_location']['lng'],
-                    directions['bounds_ne'],
-                    directions['bounds_sw'],
-                  );
+                 var place = await LocationService().getPlace(_originController.text);
+                _goToPlace(place);
+                  
 
-                  _setPolyline(directions['polyline_decoded']);
+                  //_setPolyline(directions['polyline_decoded']);
                 },
-                icon: Icon(Icons.search),
+                icon: const Icon(Icons.search),
               ),
             ],
           ),
@@ -133,7 +115,7 @@ class MapSampleState extends State<MapSample> {
               markers: _markers,
               polygons: _polygons,
               polylines: _polylines,
-              initialCameraPosition: _kGooglePlex,
+              initialCameraPosition: _Brno,
               onMapCreated: (GoogleMapController controller) {
                 _controller.complete(controller);
               },
@@ -151,14 +133,10 @@ class MapSampleState extends State<MapSample> {
   }
 
   Future<void> _goToPlace(
-    // Map<String, dynamic> place,
-    double lat,
-    double lng,
-    Map<String, dynamic> boundsNe,
-    Map<String, dynamic> boundsSw,
+   Map<String, dynamic> place,
   ) async {
-    // final double lat = place['geometry']['location']['lat'];
-    // final double lng = place['geometry']['location']['lng'];
+     final double lat = place['geometry']['location']['lat'];
+     final double lng = place['geometry']['location']['lng'];
 
     final GoogleMapController controller = await _controller.future;
     controller.animateCamera(
@@ -166,7 +144,7 @@ class MapSampleState extends State<MapSample> {
         CameraPosition(target: LatLng(lat, lng), zoom: 12),
       ),
     );
-
+/*
     controller.animateCamera(
       CameraUpdate.newLatLngBounds(
           LatLngBounds(
@@ -174,7 +152,7 @@ class MapSampleState extends State<MapSample> {
             northeast: LatLng(boundsNe['lat'], boundsNe['lng']),
           ),
           25),
-    );
+    );*/
     _setMarker(LatLng(lat, lng));
   }
 }

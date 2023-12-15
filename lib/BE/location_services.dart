@@ -1,9 +1,8 @@
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
 class LocationService {
-  final String key = 'API_KEY';
+  final String key = 'AIzaSyALDbjfmDPNiKXf4x86gI4KXd-RH6N-Qx0';
 
   Future<String> getPlaceId(String input) async {
     final String url =
@@ -29,7 +28,7 @@ class LocationService {
     print(results);
     return results;
   }
-
+/*
   Future<Map<String, dynamic>> getDirections(
       String origin, String destination) async {
     final String url =
@@ -52,4 +51,5 @@ class LocationService {
 
     return results;
   }
+  */
 }
