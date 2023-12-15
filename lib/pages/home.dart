@@ -94,25 +94,28 @@ class _HomeScreenState extends State<HomeScreen> {
                   _currentIndex = index;
                 });
               },
-              backgroundColor: Colors.redAccent.shade700,
+              backgroundColor: Colors.white,
               selectedIndex: _currentIndex,
               destinations: const <Widget>[
-                NavigationDestination(icon: Icon(Icons.list), label: "Spoty"),
+                NavigationDestination(
+                  icon: Icon(Icons.list),
+                  selectedIcon: Icon(Icons.list, color: Colors.red),
+                   label: "Spoty"),
                 NavigationDestination(
                     icon: Icon(Icons.map_outlined),
-                    selectedIcon: Icon(Icons.map),
+                    selectedIcon: Icon(Icons.map,color: Colors.red),
                     label: "Mapa"),
                 NavigationDestination(
-                    icon: Icon(Icons.calendar_month_outlined,color: Colors.white,),
-                    selectedIcon: Icon(Icons.calendar_month_rounded,color: Colors.white,),
+                    icon: Icon(Icons.calendar_month_outlined,),
+                    selectedIcon: Icon(Icons.calendar_month_rounded,color: Colors.red,),
                     label: "Kalendář"),
                 NavigationDestination(
-                    icon: Icon(Icons.chat_outlined,color: Colors.white,),
-                    selectedIcon: Icon(Icons.chat,color: Colors.white,),
+                    icon: Icon(Icons.chat_outlined,),
+                    selectedIcon: Icon(Icons.chat,color: Colors.red,),
                     label: "Chat"),
                 NavigationDestination(
-                    icon: Icon(Icons.person_2_outlined, color: Colors.white,),
-                    selectedIcon: Icon(Icons.person_2,color: Colors.white,),
+                    icon: Icon(Icons.person_2_outlined),
+                    selectedIcon: Icon(Icons.person_2,color: Colors.red),
                     label: "Profil")
               ],
             )));
