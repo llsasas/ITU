@@ -75,7 +75,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: const Text('MAP'),
               ),
               Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Container(
                     child: AddEventButton(),
