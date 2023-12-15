@@ -52,7 +52,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _title() {
-    return const Text("Authentication");
+    return const Text("Authentication",
+    style: TextStyle(color: Colors.white),);
   }
 
   Widget _entryField(
@@ -97,6 +98,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         title: _title(),
+        backgroundColor: Colors.redAccent.shade700,
       ),
       body: Container(
         height: double.infinity,

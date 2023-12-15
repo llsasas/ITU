@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:ituapp/BE/googlemaps.dart';
 import 'package:ituapp/pages/profile_page.dart';
-import 'package:ituapp/pages/spotDescription.dart';
 import 'package:ituapp/pages/storage_handler.dart';
 import 'package:ituapp/pages/custom_widgets.dart';
 import 'package:ituapp/auth.dart';
 import 'package:ituapp/pages/chat.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:table_calendar/table_calendar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -31,7 +30,8 @@ class _HomeScreenState extends State<HomeScreen> {
       style: ElevatedButton.styleFrom(
       backgroundColor: Colors.redAccent.shade700, // Změňte tuto barvu podle svých potřeb
   ),
-     child: const Text('Sign out'));
+     child: const Text('Sign out',
+     style: TextStyle(color: Colors.white),));
   }
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,8 @@ class _HomeScreenState extends State<HomeScreen> {
               title: const Text("Spot Center",
                style: TextStyle(
                 fontWeight: FontWeight.normal, 
-                fontSize: 40.0, 
+                fontSize: 40.0,
+                color: Colors.white, 
               ),),
               actions: [_signOutButt(),
                 /*
@@ -72,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Container(
                 color: Colors.blue,
                 alignment: Alignment.center,
-                child: const Text('MAP'),
+                child: MapSample(),
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,

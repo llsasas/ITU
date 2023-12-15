@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-import 'package:ituapp/pages/chat.dart';
 
 class ChatUsers{
   String name;
