@@ -26,13 +26,15 @@ class ProfilePage extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: <Widget>[
+            
             const Padding(
-              padding:  EdgeInsets.all(8.0),
+              padding:  EdgeInsets.all(10.0),
               child:  Row(children: [Text("Můj profil")],),
             ),
             
             Row(
               children: <Widget>[
+                const Spacer(),
                 FutureBuilder<String>(
                   future: storage.downloadUrl("fun.jpg"),
                   builder: (BuildContext context, AsyncSnapshot <String> snapshot) {
@@ -49,14 +51,16 @@ class ProfilePage extends StatelessWidget {
                     }
                   }
                   ),
+                const Spacer(),
                 const Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text("John Doe"),
                     Text("john.doe@gmail.com"),
                     Text("status")
                   ],
-                )
+                ),
+                const Spacer(),
               ],
             ),
             
@@ -69,7 +73,7 @@ class ProfilePage extends StatelessWidget {
                     Card(
                       child: InkWell(
                         onTap:() {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => const PersonalInformation()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalInformation()));
                         },
                         child: Container(
                           width: 300,

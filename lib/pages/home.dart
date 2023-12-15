@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return ElevatedButton(
       onPressed: signOut,
       style: ElevatedButton.styleFrom(
-      backgroundColor: Colors.redAccent.shade700, // Změňte tuto barvu podle svých potřeb
+      backgroundColor: Colors.redAccent.shade700, elevation: 0 // Změňte tuto barvu podle svých potřeb
   ),
      child: const Text('Sign out',
      style: TextStyle(color: Colors.white),));
@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             body: <Widget>[
               Container(
-                  color: Colors.grey.shade100,
+                  color: const Color.fromRGBO(238, 230, 230, 1),
                   padding: const EdgeInsets.all(30),
                   child: ListView.builder(
                       itemCount: displayed_items.toInt(),
