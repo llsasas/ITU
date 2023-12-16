@@ -1,3 +1,4 @@
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 
@@ -27,5 +28,13 @@ class LocationService {
 
     print(results);
     return results;
+  }
+
+  Future<LatLng> getlatlng(String input) async {
+    Map<String, dynamic> place = await getPlace(input);
+    final double lat = place['geometry']['location']['lat'];
+    final double lng = place['geometry']['location']['lng'];
+
+    return LatLng(lat, lng);
   }
 }
