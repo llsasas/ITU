@@ -21,7 +21,7 @@ class Storage{
       File file = File(filepath);
       try
       {
-       storage.ref('test/$filename').putFile(file);
+       storage.ref(filename).putFile(file);
       } on firebase_core.FirebaseException catch(e)
       {
         print(e);

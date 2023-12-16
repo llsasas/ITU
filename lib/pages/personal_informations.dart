@@ -19,7 +19,7 @@ class PersonalInformation extends StatefulWidget{
 
 class _PersonalInformationState extends State<PersonalInformation> {
 
-  late File _image_file;
+  
   final ImagePicker _imagePicker = ImagePicker();
 
   @override
@@ -125,7 +125,8 @@ class _PersonalInformationState extends State<PersonalInformation> {
     final pickedFile = await _imagePicker.pickImage(source: source);
     if (pickedFile == null) return;
     setState(() {
-      _image_file = File(pickedFile.path);
+      Storage().uploadFile(pickedFile.path, pickedFile.name);
+      Auth().currentUser!.updatePhotoURL(Storage().downloadUrl(pickedFile.name).toString());
       
     });
   }

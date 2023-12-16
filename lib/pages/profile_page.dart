@@ -36,7 +36,7 @@ class ProfilePage extends StatelessWidget {
               children: <Widget>[
                 const Spacer(),
                 FutureBuilder<String>(
-                  future: storage.downloadUrl("fun.jpg"),
+                  future: (user == null) || (user.photoURL == null) ? storage.downloadUrl("user.png") : Future.value(user.photoURL),
                   builder: (BuildContext context, AsyncSnapshot <String> snapshot) {
                     if(snapshot.connectionState == ConnectionState.waiting){
                       return const CircularProgressIndicator();
@@ -129,6 +129,8 @@ class ProfilePage extends StatelessWidget {
 
   
 }
+
+
 
 /**
  * return Column(
