@@ -4,7 +4,7 @@ class Spot
 {
   final String name;
   String? address;
-  String? description;
+  final String description;
   num? level;
   Spot({required this.name, required this.address, required this.description, required this.level});
 }

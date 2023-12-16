@@ -14,35 +14,47 @@ class SpotCard extends StatelessWidget {
       color: Colors.white,
       child: InkWell(
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) =>  SpotDescription(spot: spot)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => SpotDescription(spot: spot)));
         },
-        child: Column
-        (
+        child: Column(
           children: [
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             FutureBuilder(
-            future: storage.downloadUrl('fun.jpg'),
-            builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-              if (snapshot.connectionState == ConnectionState.done &&
-                  snapshot.hasData) {
-                return Container(
-                    width: 100,
-                    height: 100,
-                    child: Image.network(
-                      snapshot.data!,
-                      fit: BoxFit.cover,
-                    ));
-              }
-              if (snapshot.connectionState == ConnectionState.waiting ||
-                  !snapshot.hasData) {
-                return const CircularProgressIndicator();
-              }
-              return Container();
-            },
-          ),
-          const SizedBox(height: 10,),
-          Text(spot.name),
+              future: storage.downloadUrl('fun.jpg'),
+              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.hasData) {
+                  return Container(
+                      width: 100,
+                      height: 100,
+                      child: Image.network(
+                        snapshot.data!,
+                        fit: BoxFit.cover,
+                      ));
+                }
+                if (snapshot.connectionState == ConnectionState.waiting ||
+                    !snapshot.hasData) {
+                  return const CircularProgressIndicator();
+                }
+                return Container();
+              },
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(
+              spot.name,
+              style: const TextStyle(
+                fontSize: 20,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ],
         ),
       ),

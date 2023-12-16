@@ -16,14 +16,87 @@ class SpotDescription extends StatelessWidget {
           "Spot details",
           style: TextStyle(
             fontWeight: FontWeight.normal,
-            fontSize: 40.0,
-            color: Colors.white,
+            fontSize: 25.0,
+            color: const Color.fromRGBO(238, 230, 230, 1),
           ),
         ),
         centerTitle: true,
         backgroundColor: Colors.redAccent.shade700,
       ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              spot.name,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 30,
+              ),
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'Description:',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ),
+            Text(
+              spot.description,
+              style: const TextStyle(
+                fontSize: 16,
+              ),
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'Level:',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ),
+                     const SizedBox(height: 8),
+            Row(
+              children: [
+                if (spot.level == 1) ...[
+                  const Icon(Icons.circle, size: 30, color: Colors.green),
+                  const Icon(Icons.circle, size: 30, color: Colors.grey),
+                  const Icon(Icons.circle, size: 30, color: Colors.grey),
+                ] else if (spot.level == 2) ...[
+                  const Icon(Icons.circle, size: 30, color: Colors.orange),
+                  const Icon(Icons.circle, size: 30, color: Colors.orange),
+                  const Icon(Icons.circle, size: 30, color: Colors.grey),
+                ] else if (spot.level == 3) ...[
+                  const Icon(Icons.circle, size: 30, color: Colors.red),
+                  const Icon(Icons.circle, size: 30, color: Colors.red),
+                  const Icon(Icons.circle, size: 30, color: Colors.red),
+                ],
+              ],
+            ),
+            const SizedBox(height: 25),
+            const Text(
+              'Spot Photos:',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ),
+            const SizedBox(height: 8),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+
+/*
+Center(
         child: FutureBuilder(
           future: storage.downloadUrl('spot1.jpg'),
           builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
@@ -45,6 +118,4 @@ class SpotDescription extends StatelessWidget {
           },
         ),
       ),
-    );
-  }
-}
+      */

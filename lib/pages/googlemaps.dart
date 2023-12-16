@@ -124,7 +124,7 @@ class MapSampleState extends State<MapSample> {
                   children: [
                     TextFormField(
                       controller: _originController,
-                      decoration: const InputDecoration(hintText: 'Search'),
+                      decoration: const InputDecoration(hintText: 'Search', hintStyle: TextStyle(fontSize: 20, color: Colors.black),),
                       onChanged: (value) {
                         print(value);
                       },
@@ -138,7 +138,7 @@ class MapSampleState extends State<MapSample> {
                       await LocationService().getPlace(_originController.text);
                   _goToPlace(place);
                 },
-                icon: const Icon(Icons.search),
+                icon: const Icon(Icons.search, color: Colors.black,size: 30,),
               ),
             ],
           ),

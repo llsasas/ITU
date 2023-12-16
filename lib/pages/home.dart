@@ -18,7 +18,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 num displayed_items = spotslist.length;
-
+bool spots = true;
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
   final User? user = Auth().currentUser;
@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: Colors.white,
                 ),
               ),
-              leading: AddSpotButton(),
+              leading: spots ? AddSpotButton() : null,
               actions: [
                 _signOutButt(),
               ],
@@ -89,6 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
             bottomNavigationBar: NavigationBar(
               onDestinationSelected: (int index) {
                 setState(() {
+                  index == 0  ? spots= true : spots = false;
                   _currentIndex = index;
                 });
               },
