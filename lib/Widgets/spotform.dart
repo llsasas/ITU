@@ -24,19 +24,18 @@ class AddSpotButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RawMaterialButton(
+    return IconButton(
       onPressed: () {
         // Zde zavoláte funkci pro otevření nového okna
         _openNewWindow(context);
       },
-      elevation: 2.0,
-      fillColor: Colors.white,
+      color: Colors.white,
       padding: const EdgeInsets.all(15.0),
-      shape: const CircleBorder(),
-      child: const Icon(
+      
+      icon: const Icon(
         Icons.add_sharp,
         size: 35.0,
-        color: Colors.red,
+        color: Colors.white,
       ),
     );
   }

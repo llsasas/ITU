@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ituapp/BE/ChatUsers.dart';
 import 'package:ituapp/BE/message.dart';
 
 class ChatDetailPage extends StatefulWidget {
@@ -7,6 +8,7 @@ class ChatDetailPage extends StatefulWidget {
 }
 
 class _ChatDetailPageState extends State<ChatDetailPage> {
+  final TextEditingController _controllermessage = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +35,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                 ),
                 const CircleAvatar(
                   backgroundImage: NetworkImage(
-                      "<https://randomuser.me/api/portraits/men/8.jpg>"),
+                      "https://images.generated.photos/FkETUiEtr4GybYlSl6MZEf-epdB-X4F2beuGTXlyQ94/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92M18w/NDMwOTc0LmpwZw.jpg"),
                   maxRadius: 20,
                 ),
                 const SizedBox(
@@ -45,7 +47,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       const Text(
-                        "Kriss Benwat",
+                        "Jane Russell",
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w600),
                       ),
@@ -69,6 +71,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
           ),
         ),
       ),
+      backgroundColor: const Color.fromRGBO(238, 230, 230, 1),
       body: Stack(
         children: <Widget>[
           ListView.builder(
@@ -78,8 +81,8 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
               return Container(
-                padding:
-                    const EdgeInsets.only(left: 14, right: 14, top: 10, bottom: 10),
+                padding: const EdgeInsets.only(
+                    left: 14, right: 14, top: 10, bottom: 10),
                 child: Align(
                   alignment: (messages[index].type == "receiver"
                       ? Alignment.topLeft
@@ -88,7 +91,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: (messages[index].type == "receiver"
-                          ? Colors.grey.shade200
+                          ? Colors.white
                           : Colors.lightBlue.shade900),
                     ),
                     padding: const EdgeInsets.all(16),
@@ -129,9 +132,10 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                   const SizedBox(
                     width: 15,
                   ),
-                  const Expanded(
+                  Expanded(
                     child: TextField(
-                      decoration: InputDecoration(
+                      controller: _controllermessage,
+                      decoration: const InputDecoration(
                           hintText: "Write message...",
                           hintStyle: TextStyle(color: Colors.black54),
                           border: InputBorder.none),
@@ -141,7 +145,14 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                     width: 15,
                   ),
                   FloatingActionButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        chatUsers[0] = ChatUsers( name: "Jane Russel",  message: _controllermessage.text,  imagelink: "https://images.generated.photos/FkETUiEtr4GybYlSl6MZEf-epdB-X4F2beuGTXlyQ94/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92M18w/NDMwOTc0LmpwZw.jpg", time: "Now");
+                        messages.add(Message(
+                            content: _controllermessage.text, type: "sender"));
+                        
+                      });
+                    },
                     backgroundColor: Colors.redAccent.shade700,
                     elevation: 0,
                     child: const Icon(

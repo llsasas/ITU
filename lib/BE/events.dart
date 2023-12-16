@@ -1,8 +1,8 @@
 class Event
 {
   final String eventname;
-  final String description;
- Event({required this.eventname, required this.description});
+  final String time;
+ Event({required this.eventname, required this.time});
 }
 
 Map<DateTime, List<Event>> eventslist = {};

@@ -83,7 +83,7 @@ class _ChatState extends State<Chat> {
               shrinkWrap: true,
               padding: const EdgeInsets.only(top: 16),
               physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
+              itemBuilder: (BuildContext context, int index) {
                 return ChatList(
                   name: chatUsers[index].name,
                   msg: chatUsers[index].message,

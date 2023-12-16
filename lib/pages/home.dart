@@ -54,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: Colors.white,
                 ),
               ),
+              leading: AddSpotButton(),
               actions: [
                 _signOutButt(),
               ],

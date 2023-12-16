@@ -115,7 +115,7 @@ class TableEventsState extends State<TableEvents> {
             _entryField('Time', _controllerdescription),
             TextButton(
               onPressed: () {
-                eventslist.addAll({_selectedDay!:[Event(eventname: _controllername.text, description: _controllerdescription.text)]});
+                eventslist.addAll({_selectedDay!:[Event(eventname: _controllername.text, time: _controllerdescription.text)]});
                 Navigator.of(context).pop();
                 _selectedEvents.value = _getEventsForDay(_selectedDay!);
               },
@@ -194,7 +194,7 @@ class TableEventsState extends State<TableEvents> {
               margin: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
               decoration: BoxDecoration(border: Border.all(), borderRadius: BorderRadius.circular(12)),
               child: ListTile(onTap: () => print(""),
-                title: Text('Time:${value[index].description} Event: ${value[index].eventname}'),
+                title: Text('Time:${value[index].time} Event: ${value[index].eventname}'),
               ),
             );
           });
