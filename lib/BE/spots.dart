@@ -2,7 +2,7 @@ const String desc = "In laoreet, magna id viverra tincidunt, sem odio bibendum j
 
 class Spot
 {
-  String? name;
+  final String name;
   String? address;
   String? description;
   num? level;
