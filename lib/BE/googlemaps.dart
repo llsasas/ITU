@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:ituapp/BE/location_services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-  Set<Marker> _markers = Set<Marker>();
+import 'package:ituapp/BE/mapmarkers.dart';
+import 'package:ituapp/BE/spots.dart';
 
 class MapSample extends StatefulWidget {
   @override
@@ -14,8 +14,9 @@ class MapSample extends StatefulWidget {
 class MapSampleState extends State<MapSample> {
   Completer<GoogleMapController> _controller = Completer();
   TextEditingController _originController = TextEditingController();
-
-
+  final TextEditingController _controllername = TextEditingController();
+  final TextEditingController _controlleraddress = TextEditingController();
+  final TextEditingController _controllerdescription = TextEditingController();
   static const CameraPosition _Brno = CameraPosition(
     target: LatLng(49.195061, 16.606836),
     zoom: 14.4746,
@@ -28,15 +29,87 @@ class MapSampleState extends State<MapSample> {
     //_setMarker(const LatLng(37.42796133580664, -122.085749655962));
   }
 
-  void _setMarker(LatLng point) {
+  Widget _entryField(
+    String title,
+    TextEditingController controller,
+  ) {
+    return TextField(
+      controller: controller,
+      decoration: InputDecoration(labelText: title),
+    );
+  }
+
+  void _setMarker(LatLng point, String name, String description) {
     setState(() {
-      _markers.add(
+      mapmarkerslist.add(
         Marker(
-          markerId: const MarkerId('marker'),
+          markerId: const MarkerId("marker"),
+          infoWindow: InfoWindow(title: name, snippet: "Description: $description"),
           position: point,
         ),
       );
     });
+  }
+
+  void _addnewspotmap(BuildContext context,LatLng point) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return SimpleDialog(
+          title: const Text("Add event"),
+          // contentPadding: const EdgeInsets.all(200.0),
+          children: <Widget>[
+            _entryField('Name', _controllername),
+            _entryField('Adress', _controlleraddress),
+            _entryField('Description', _controllerdescription),
+            TextButton(
+              onPressed: () {
+                // Zde můžete definovat akci po stisknutí tlačítka v novém okně
+                spotslist.add(Spot(name: _controllername.text, address: _controlleraddress.text, description: _controllerdescription.text, level: 3));
+                _setMarker(point, _controllername.text, _controllerdescription.text);
+                Navigator.of(context).pop(); // Zavře nové okno
+              },
+              child: const Text("Add spot"),
+            ),
+            TextButton(
+              onPressed: () {
+                // Zde můžete definovat akci po stisknutí tlačítka v novém okně
+                Navigator.of(context).pop(); // Zavře nové okno
+              },
+              child: const Text("Close"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _openNewWindow(BuildContext context, LatLng point) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("New spot"),
+          // contentPadding: const EdgeInsets.all(200.0),
+          content: const Text("Do you want to add new spot?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                _addnewspotmap(context, point);
+              },
+              child: Text('Yes'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('No'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -61,9 +134,9 @@ class MapSampleState extends State<MapSample> {
               ),
               IconButton(
                 onPressed: () async {
-                 var place = await LocationService().getPlace(_originController.text);
-                _goToPlace(place);
-                  
+                  var place =
+                      await LocationService().getPlace(_originController.text);
+                  _goToPlace(place);
                 },
                 icon: const Icon(Icons.search),
               ),
@@ -72,13 +145,13 @@ class MapSampleState extends State<MapSample> {
           Expanded(
             child: GoogleMap(
               mapType: MapType.normal,
-              markers: _markers,
+              markers: mapmarkerslist,
               initialCameraPosition: _Brno,
               onMapCreated: (GoogleMapController controller) {
                 _controller.complete(controller);
               },
-              onTap: (point) {
-                  //TODO
+              onLongPress: (point) {
+                _openNewWindow(context, point);
               },
             ),
           ),
@@ -88,10 +161,10 @@ class MapSampleState extends State<MapSample> {
   }
 
   Future<void> _goToPlace(
-   Map<String, dynamic> place,
+    Map<String, dynamic> place,
   ) async {
-     final double lat = place['geometry']['location']['lat'];
-     final double lng = place['geometry']['location']['lng'];
+    final double lat = place['geometry']['location']['lat'];
+    final double lng = place['geometry']['location']['lng'];
 
     final GoogleMapController controller = await _controller.future;
     controller.animateCamera(
@@ -99,14 +172,5 @@ class MapSampleState extends State<MapSample> {
         CameraPosition(target: LatLng(lat, lng), zoom: 12),
       ),
     );
-/*
-    controller.animateCamera(
-      CameraUpdate.newLatLngBounds(
-          LatLngBounds(
-            southwest: LatLng(boundsSw['lat'], boundsSw['lng']),
-            northeast: LatLng(boundsNe['lat'], boundsNe['lng']),
-          ),
-          25),
-    );*/
   }
 }

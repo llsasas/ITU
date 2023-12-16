@@ -42,7 +42,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> add_userinfo() async {
-    //String email = _controllerEmail.text;
     appusers.add(AppUsers(
         email: _controllerEmail.text,
         username: _controllerUsername.text,
@@ -89,7 +88,10 @@ class _LoginPageState extends State<LoginPage> {
             isLogin = !isLogin;
           });
         },
-        child: Text(isLogin! ? 'Register instead' : 'Login instead'));
+        // ignore: prefer_const_constructors
+        //style: ButtonStyle(backgroundColor: Colors.red),
+        child: Text(isLogin! ? 'Register instead' : 'Login instead'),
+        );
   }
 
   @override
@@ -109,8 +111,8 @@ class _LoginPageState extends State<LoginPage> {
           children: <Widget>[
             _entryField('Email', _controllerEmail),
             if (!isLogin) _entryField('Username', _controllerUsername),
-            if (!isLogin) _entryField('Name', _controllerUsername),
-            if (!isLogin) _entryField('Surname', _controllerUsername),
+            if (!isLogin) _entryField('Name', _controllername),
+            if (!isLogin) _entryField('Surname', _controllersurname),
             _entryField('Password', _controllerPassword),
             _errorMessage(),
             _submitButton(),
