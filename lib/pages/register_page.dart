@@ -50,8 +50,10 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _title() {
-    return const Text("Authentication",
-    style: TextStyle(color: Colors.white),);
+    return const Text(
+      "Authentication",
+      style: TextStyle(color: Colors.white),
+    );
   }
 
   Widget _entryField(
@@ -83,17 +85,21 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _loginOrRegister() {
     return TextButton(
-        style: ButtonStyle(backgroundColor: Colors.white),
-        onPressed: () {
-          setState(() {
-            isLogin = !isLogin;
-          });
-        },
-        // ignore: prefer_const_constructors
-        //style: ButtonStyle(backgroundColor: Colors.red),
-        child: Text(isLogin! ? 'Register instead' : 'Login instead',
-         style:TextStyle(color: Colors.black) ,),
-        );
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(Colors.white),
+      ),
+      onPressed: () {
+        setState(() {
+          isLogin = !isLogin;
+        });
+      },
+      // ignore: prefer_const_constructors
+      //style: ButtonStyle(backgroundColor: Colors.red),
+      child: Text(
+        isLogin! ? 'Register instead' : 'Login instead',
+        style: TextStyle(color: Colors.black),
+      ),
+    );
   }
 
   @override
