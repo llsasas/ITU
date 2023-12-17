@@ -60,8 +60,10 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _title() {
-    return const Text("Authentication",
-    style: TextStyle(color: Colors.white),);
+    return const Text(
+      "Authentication",
+      style: TextStyle(color: Colors.white),
+    );
   }
 
   Widget _entryField(
@@ -75,12 +77,16 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _errorMessage() {
-    return Text(errorMessage == '' ? '' : 'Humm ? $errorMessage');
+    return Text(errorMessage == '' ? '' : '$errorMessage');
   }
 
   Widget _submitButton() {
     return ElevatedButton(
+        style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(Colors.white),
+      ),
         onPressed: () {
+          
           if (isLogin) {
             signInWithEmailAndPassword();
           } else {
@@ -89,20 +95,26 @@ class _LoginPageState extends State<LoginPage> {
             
           }
         },
-        child: Text(isLogin ? 'Login' : 'Register'));
+        child: Text(isLogin ? 'Login' : 'Register',style: TextStyle(color: Colors.black)));
   }
 
   Widget _loginOrRegister() {
     return TextButton(
-        onPressed: () {
-          setState(() {
-            isLogin = !isLogin;
-          });
-        },
-        // ignore: prefer_const_constructors
-        //style: ButtonStyle(backgroundColor: Colors.red),
-        child: Text(isLogin! ? 'Register instead' : 'Login instead'),
-        );
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(Colors.white),
+      ),
+      onPressed: () {
+        setState(() {
+          isLogin = !isLogin;
+        });
+      },
+      // ignore: prefer_const_constructors
+      //style: ButtonStyle(backgroundColor: Colors.red),
+      child: Text(
+        isLogin! ? 'Register instead' : 'Login instead',
+        style: TextStyle(color: Colors.black),
+      ),
+    );
   }
 
   @override

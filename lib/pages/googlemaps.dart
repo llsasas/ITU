@@ -19,7 +19,6 @@ class MapSampleState extends State<MapSample> {
   Completer<GoogleMapController> _controller = Completer();
   TextEditingController _originController = TextEditingController();
   final TextEditingController _controllername = TextEditingController();
-  final TextEditingController _controlleraddress = TextEditingController();
   final TextEditingController _controllerdescription = TextEditingController();
   static const CameraPosition _Brno = CameraPosition(
     target: LatLng(49.195061, 16.606836),
@@ -68,8 +67,6 @@ class MapSampleState extends State<MapSample> {
           children: <Widget>[
             _entryField('Name', _controllername),
             const SizedBox(height: 10),
-            _entryField('Adress', _controlleraddress),
-            const SizedBox(height: 10),
             _entryField('Description', _controllerdescription),
             const SizedBox(height: 10),
             DropDownLevel(),
@@ -95,7 +92,7 @@ class MapSampleState extends State<MapSample> {
                   onPressed: () {
                     spotslist.add(Spot(
                         name: _controllername.text,
-                        address: _controlleraddress.text,
+                        address: '',
                         description: _controllerdescription.text,
                         level: dropvalue,
                         picturelinks: nametopass != '' ? [nametopass] : []));

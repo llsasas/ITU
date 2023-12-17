@@ -57,7 +57,7 @@ class SpotDescription extends StatelessWidget {
                 fontSize: 18,
               ),
             ),
-                     const SizedBox(height: 8),
+            const SizedBox(height: 8),
             Row(
               children: [
                 if (spot.level == 1) ...[
@@ -84,6 +84,38 @@ class SpotDescription extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
+            SizedBox(
+              height: 250,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: spot.picturelinks.length,
+                itemBuilder: (context, index) {
+                  return FutureBuilder(
+                    future: storage.downloadUrl(spot.picturelinks[index]),
+                    builder:
+                        (BuildContext context, AsyncSnapshot<String> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done &&
+                          snapshot.hasData) {
+                        return Container(
+                          width: 250,
+                          height: 250,
+                          margin: const EdgeInsets.only(right: 8.0),
+                          child: Image.network(
+                            snapshot.data!,
+                            fit: BoxFit.cover,
+                          ),
+                        );
+                      }
+                      if (snapshot.connectionState == ConnectionState.waiting ||
+                          !snapshot.hasData) {
+                        return const CircularProgressIndicator();
+                      }
+                      return Container();
+                    },
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
