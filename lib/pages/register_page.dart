@@ -72,7 +72,11 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _submitButton() {
     return ElevatedButton(
+        style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all(Colors.white),
+      ),
         onPressed: () {
+          
           if (isLogin) {
             signInWithEmailAndPassword();
           } else {
@@ -80,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
             add_userinfo();
           }
         },
-        child: Text(isLogin ? 'Login' : 'Register'));
+        child: Text(isLogin ? 'Login' : 'Register',style: TextStyle(color: Colors.black)));
   }
 
   Widget _loginOrRegister() {
