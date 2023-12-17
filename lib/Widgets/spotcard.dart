@@ -25,7 +25,7 @@ class SpotCard extends StatelessWidget {
               height: 10,
             ),
             FutureBuilder(
-              future: storage.downloadUrl('fun.jpg'),
+              future: storage.downloadUrl(spot.picturelinks[0]),
               builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
                 if (snapshot.connectionState == ConnectionState.done &&
                     snapshot.hasData) {

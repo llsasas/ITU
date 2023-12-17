@@ -3,14 +3,17 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ituapp/BE/spots.dart';
 import 'package:ituapp/BE/mapmarkers.dart';
 import 'package:ituapp/BE/location_services.dart';
+import 'package:ituapp/BE/storage_handler.dart';
 import 'package:ituapp/Widgets/dropdownlevel.dart';
+import 'package:ituapp/Widgets/filepicker.dart';
 
 num dropvalue = 1;
-
+String spotnametopass = '';
 class AddSpotButton extends StatelessWidget {
   final TextEditingController _controllername = TextEditingController();
   final TextEditingController _controlleraddress = TextEditingController();
   final TextEditingController _controllerdescription = TextEditingController();
+  final Storage storage = Storage();
 
   Widget _entryField(
     String title,
@@ -56,6 +59,10 @@ class AddSpotButton extends StatelessWidget {
                         const SizedBox(height: 10),
             _entryField('Description', _controllerdescription),
             const SizedBox(height: 10),
+            FilePickerButton(),
+            const SizedBox(height: 10),
+            FilePickerButton(),
+            const SizedBox(height: 10),
             DropDownLevel(),
                         const SizedBox(height: 30),
             Row(
@@ -82,7 +89,10 @@ class AddSpotButton extends StatelessWidget {
                         name: _controllername.text,
                         address: _controlleraddress.text,
                         description: _controllerdescription.text,
-                        level: 3));
+                        level: dropvalue, picturelinks: nametopass != '' ? ["${_controllername.text}/$nametopass"] : []));
+                        storage.uploadFile(pathtopass, "${_controllername.text}/$nametopass");
+                        nametopass = '';
+                        pathtopass = '';
                     mapmarkerslist.add(
                       Marker(
                         markerId: const MarkerId("marker"),

@@ -5,7 +5,9 @@ import 'package:ituapp/BE/location_services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ituapp/BE/mapmarkers.dart';
 import 'package:ituapp/BE/spots.dart';
+import 'package:ituapp/BE/storage_handler.dart';
 import 'package:ituapp/Widgets/dropdownlevel.dart';
+import 'package:ituapp/Widgets/filepicker.dart';
 import 'package:ituapp/Widgets/spotform.dart';
 class MapSample extends StatefulWidget {
   @override
@@ -22,7 +24,7 @@ class MapSampleState extends State<MapSample> {
     target: LatLng(49.195061, 16.606836),
     zoom: 14.4746,
   );
-
+  Storage storage = Storage();
   @override
   void initState() {
     super.initState();
@@ -68,6 +70,8 @@ class MapSampleState extends State<MapSample> {
             const SizedBox(height: 10),
             _entryField('Description', _controllerdescription),
             const SizedBox(height: 10),
+                        const SizedBox(height: 10),
+            FilePickerButton(),
             DropDownLevel(),
             const SizedBox(height: 30),
             Row(
@@ -91,7 +95,10 @@ class MapSampleState extends State<MapSample> {
                         name: _controllername.text,
                         address: _controlleraddress.text,
                         description: _controllerdescription.text,
-                        level: dropvalue));
+                        level: dropvalue, picturelinks: nametopass != '' ? ["${_controllername.text}/$nametopass"] : []));
+                        storage.uploadFile(pathtopass, "${_controllername.text}/$nametopass");
+                        nametopass = '';
+                        pathtopass = '';
                     _setMarker(point, _controllername.text,
                         _controllerdescription.text);
                     Navigator.of(context).pop(); 

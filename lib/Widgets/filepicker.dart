@@ -2,14 +2,19 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:ituapp/BE/storage_handler.dart';
 
+String nametopass = '';
+String pathtopass = '';
 class FilePickerButton extends StatelessWidget {
-  const FilePickerButton({super.key});
+  const FilePickerButton({Key? key});
 
   @override
   Widget build(BuildContext context) {
     final Storage storage = Storage();
     return Center(
       child: ElevatedButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(Colors.white),
+        ),
         onPressed: () async {
           final result = await FilePicker.platform.pickFiles(
             allowMultiple: false,
@@ -23,14 +28,19 @@ class FilePickerButton extends StatelessWidget {
                 content: Text("No file selected"),
               ),
             );
+            nametopass = '';
             return null;
           }
-
-          final path = result.files.single.path!;
-          final filename = result.files.single.name;
-          storage.uploadFile(path, filename);
+          nametopass = result.files.single.name;
+          pathtopass = result.files.single.path!;
         },
-        child: const Text('Choose a picture'),
+        child:const Text(
+          'Choose a picture',
+          style: TextStyle(
+            fontWeight: FontWeight.normal,
+            color: Colors.black,
+          ),
+        ),
       ),
     );
   }
