@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ituapp/BE/spots.dart';
 import 'package:ituapp/BE/storage_handler.dart';
+import 'package:ituapp/Widgets/modify_photos.dart';
 
 class SpotDescription extends StatelessWidget {
   final Spot spot;
@@ -116,38 +117,10 @@ class SpotDescription extends StatelessWidget {
                 },
               ),
             ),
+            ModifySpotButton(spot: spot,)
           ],
         ),
       ),
     );
   }
 }
-
-
-
-
-
-/*
-Center(
-        child: FutureBuilder(
-          future: storage.downloadUrl('spot1.jpg'),
-          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-            if (snapshot.connectionState == ConnectionState.done &&
-                snapshot.hasData) {
-              return Container(
-                  width: 250,
-                  height: 250,
-                  child: Image.network(
-                    snapshot.data!,
-                    fit: BoxFit.cover,
-                  ));
-            }
-            if (snapshot.connectionState == ConnectionState.waiting ||
-                !snapshot.hasData) {
-              return const CircularProgressIndicator();
-            }
-            return Container();
-          },
-        ),
-      ),
-      */

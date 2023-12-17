@@ -17,43 +17,17 @@ class _ChatState extends State<Chat> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SafeArea(
+            const SafeArea(
               child: Padding(
-                padding: const EdgeInsets.only(left: 16, right: 16, top: 10),
+                padding: EdgeInsets.only(left: 16, right: 16, top: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    const Text(
+                    Text(
                       "Conversations",
                       style:
                           TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                     ),
-                    Container(
-                      padding: const EdgeInsets.only(
-                          left: 8, right: 8, top: 2, bottom: 2),
-                      height: 30,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: Colors.pink[50],
-                      ),
-                      child: const Row(
-                        children: <Widget>[
-                          Icon(
-                            Icons.add,
-                            color: Color.fromARGB(255, 233, 30, 30),
-                            size: 20,
-                          ),
-                          SizedBox(
-                            width: 2,
-                          ),
-                          Text(
-                            "New",
-                            style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    )
                   ],
                 ),
               ),
