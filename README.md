@@ -8,7 +8,7 @@
 5. V kořenové složce projektu spustit příkaz: `flutter build apk --release` (generování spustitelného souboru aplikace)
 6. V kořenové složce projektu spustit příkaz: `flutter install` (instalace na zařízení)
 
-Toto by byl postup vhodný pokud by neby používán Firebase jako BE. Tím, že náš program je vázán na Firebase, je možné provést release pouze na našich strojich spojených s tímto projektem.
+Toto by byl postup vhodný pokud by nebyl používán Firebase jako BE. Tím, že náš program je vázán na Firebase, je možné provést release pouze na našich strojich spojených s tímto projektem.
 Tento apk file si ale po vygenerování může kdokoliv nahrát na svoje Android zařízení.
 
 ## Knihovny a licence
