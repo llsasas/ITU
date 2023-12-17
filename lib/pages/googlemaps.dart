@@ -9,6 +9,7 @@ import 'package:ituapp/BE/storage_handler.dart';
 import 'package:ituapp/Widgets/dropdownlevel.dart';
 import 'package:ituapp/Widgets/filepicker.dart';
 import 'package:ituapp/Widgets/spotform.dart';
+
 class MapSample extends StatefulWidget {
   @override
   State<MapSample> createState() => MapSampleState();
@@ -31,6 +32,7 @@ class MapSampleState extends State<MapSample> {
 
     //_setMarker(const LatLng(37.42796133580664, -122.085749655962));
   }
+
   Widget _entryField(
     String title,
     TextEditingController controller,
@@ -70,9 +72,9 @@ class MapSampleState extends State<MapSample> {
             const SizedBox(height: 10),
             _entryField('Description', _controllerdescription),
             const SizedBox(height: 10),
-                        const SizedBox(height: 10),
-            FilePickerButton(),
             DropDownLevel(),
+            const SizedBox(height: 20),
+            FilePickerButton(),
             const SizedBox(height: 30),
             Row(
               children: [
@@ -95,13 +97,15 @@ class MapSampleState extends State<MapSample> {
                         name: _controllername.text,
                         address: _controlleraddress.text,
                         description: _controllerdescription.text,
-                        level: dropvalue, picturelinks: nametopass != '' ? [nametopass] : []));
-                        storage.uploadFile(pathtopass, "${_controllername.text}/$nametopass");
-                        nametopass = '';
-                        pathtopass = '';
+                        level: dropvalue,
+                        picturelinks: nametopass != '' ? [nametopass] : []));
+                    storage.uploadFile(
+                        pathtopass, "${_controllername.text}/$nametopass");
+                    nametopass = '';
+                    pathtopass = '';
                     _setMarker(point, _controllername.text,
                         _controllerdescription.text);
-                    Navigator.of(context).pop(); 
+                    Navigator.of(context).pop();
                   },
                   child: const Text(
                     "Add spot",
@@ -134,24 +138,24 @@ class MapSampleState extends State<MapSample> {
                 _addnewspotmap(context, point);
               },
               child: const Text(
-                    "Yes",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.normal),
-                  ),
+                "Yes",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal),
+              ),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
               child: const Text(
-                    "No",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.normal),
-                  ),
+                "No",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal),
+              ),
             ),
           ],
         );

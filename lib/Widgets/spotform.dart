@@ -9,6 +9,7 @@ import 'package:ituapp/Widgets/filepicker.dart';
 
 num dropvalue = 1;
 String spotnametopass = '';
+
 class AddSpotButton extends StatelessWidget {
   final TextEditingController _controllername = TextEditingController();
   final TextEditingController _controlleraddress = TextEditingController();
@@ -54,17 +55,15 @@ class AddSpotButton extends StatelessWidget {
           contentPadding: const EdgeInsets.all(50.0),
           children: <Widget>[
             _entryField('Name', _controllername),
-                        const SizedBox(height: 10),
+            const SizedBox(height: 10),
             _entryField('Adress', _controlleraddress),
-                        const SizedBox(height: 10),
+            const SizedBox(height: 10),
             _entryField('Description', _controllerdescription),
             const SizedBox(height: 10),
-            FilePickerButton(),
-            const SizedBox(height: 10),
-            FilePickerButton(),
-            const SizedBox(height: 10),
             DropDownLevel(),
-                        const SizedBox(height: 30),
+            const SizedBox(height: 20),
+            FilePickerButton(),
+            const SizedBox(height: 30),
             Row(
               children: [
                 ElevatedButton(
@@ -89,10 +88,14 @@ class AddSpotButton extends StatelessWidget {
                         name: _controllername.text,
                         address: _controlleraddress.text,
                         description: _controllerdescription.text,
-                        level: dropvalue, picturelinks: nametopass != '' ? ["${_controllername.text}/$nametopass"] : []));
-                        storage.uploadFile(pathtopass, "${_controllername.text}/$nametopass");
-                        nametopass = '';
-                        pathtopass = '';
+                        level: dropvalue,
+                        picturelinks: nametopass != ''
+                            ? ["${_controllername.text}/$nametopass"]
+                            : []));
+                    storage.uploadFile(
+                        pathtopass, "${_controllername.text}/$nametopass");
+                    nametopass = '';
+                    pathtopass = '';
                     mapmarkerslist.add(
                       Marker(
                         markerId: const MarkerId("marker"),
@@ -104,7 +107,7 @@ class AddSpotButton extends StatelessWidget {
                     );
                     Navigator.of(context).pop(); // Zavře nové okno
                   },
-                  child:  const Text(
+                  child: const Text(
                     "Add spot",
                     style: TextStyle(
                         color: Colors.black,
