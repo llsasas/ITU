@@ -1,3 +1,4 @@
+// ignore: unused_import
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -31,10 +32,10 @@ class _PersonalInformationState extends State<PersonalInformation> {
     user == null || user.email == null ? email = "" : email = user.email!;
     user == null || user.displayName == null ? displayName ="" : displayName = user.displayName!;
     return Scaffold(
-      backgroundColor: Color.fromRGBO(238, 230, 230, 1),
-      appBar: AppBar(title: Text("Osobní údaje"), centerTitle: true, backgroundColor: Colors.red.shade700, ),
+      backgroundColor: const Color.fromRGBO(238, 230, 230, 1),
+      appBar: AppBar(title: const Text("Osobní údaje"), centerTitle: true, backgroundColor: Colors.red.shade700, ),
       body: Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
             Row(
@@ -70,7 +71,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
                   width: 250,
                   child: TextField(
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(),
+                      border: const OutlineInputBorder(),
                       labelText: displayName,
                       helperText: "Uživatelské jméno"
                       ),
@@ -85,7 +86,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
                   width: 250,
                   child: TextField(
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(),
+                      border: const OutlineInputBorder(),
                       labelText: email,
                       helperText: "Email"
                       ),
@@ -94,7 +95,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
               ],
             ),
             
-            Row(
+            const Row(
               children: [
                 Text("Jméno:"),
               ],
@@ -110,15 +111,15 @@ class _PersonalInformationState extends State<PersonalInformation> {
     return Container(
       height: 100,
       width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         horizontal: 20,
         vertical: 20
       ),
       child: Column(
         children: <Widget>[
 
-        Text("Změnit profilový obrázek", style: TextStyle(fontSize: 20),),
-        SizedBox(
+        const Text("Změnit profilový obrázek", style: TextStyle(fontSize: 20),),
+        const SizedBox(
           height: 20,
         ),
         Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
@@ -126,15 +127,15 @@ class _PersonalInformationState extends State<PersonalInformation> {
             onPressed:() {
               takePhoto(ImageSource.camera);
             }, 
-            icon: Icon(Icons.camera),
-            label: Text("Kamera"),
+            icon: const Icon(Icons.camera),
+            label: const Text("Kamera"),
           ),
           TextButton.icon(
             onPressed:() {
               takePhoto(ImageSource.gallery);
             },
-            icon: Icon(Icons.image),
-            label: Text("Galerie")
+            icon: const Icon(Icons.image),
+            label: const Text("Galerie")
           )
         ])
         ]

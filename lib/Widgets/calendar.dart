@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ituapp/BE/events.dart';
+import 'package:ituapp/Widgets/time_picker.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class TableEvents extends StatefulWidget {
@@ -11,7 +12,7 @@ class TableEventsState extends State<TableEvents> {
   late final ValueNotifier<List<Event>> _selectedEvents;
   CalendarFormat _calendarFormat = CalendarFormat.month;
   final TextEditingController _controllername = TextEditingController();
-  final TextEditingController _controllerdescription = TextEditingController();
+  //final TextEditingController _controllerdescription = TextEditingController();
   RangeSelectionMode _rangeSelectionMode = RangeSelectionMode
       .toggledOff; // Can be toggled on/off by longpressing a date
   DateTime _focusedDay = DateTime.now();
@@ -33,11 +34,8 @@ class TableEventsState extends State<TableEvents> {
     super.dispose();
   }
 
-  //TODO potreba doimplementovat napojeni na BE
-
   List<Event> _getEventsForDay(DateTime day) {
-    // Implementation example
-    return eventslist[day]??[];
+    return eventslist[day] ?? [];
   }
 
   List<DateTime> daysInRange(DateTime first, DateTime last) {
@@ -48,10 +46,7 @@ class TableEventsState extends State<TableEvents> {
     );
   }
 
-  //TODO nefunkcni, potreba dodelat napojeni na BE
-
   List<Event> _getEventsForRange(DateTime start, DateTime end) {
-    // Implementation example
     final days = daysInRange(start, end);
 
     return [
@@ -64,7 +59,7 @@ class TableEventsState extends State<TableEvents> {
       setState(() {
         _selectedDay = selectedDay;
         _focusedDay = focusedDay;
-        _rangeStart = null; // Important to clean those
+        _rangeStart = null; //
         _rangeEnd = null;
         _rangeSelectionMode = RangeSelectionMode.toggledOff;
       });
@@ -78,7 +73,7 @@ class TableEventsState extends State<TableEvents> {
     TextEditingController controller,
   ) {
     return Container(
-      width: 200,
+      width: 230,
       child: TextField(
         controller: controller,
         decoration: InputDecoration(labelText: title),
@@ -108,25 +103,63 @@ class TableEventsState extends State<TableEvents> {
       context: context,
       builder: (BuildContext context) {
         return SimpleDialog(
-          title: const Text("Add event"),
+          //title: const Text("Add event"),
           contentPadding: const EdgeInsets.all(50.0),
           children: <Widget>[
             _entryField('Event', _controllername),
-            _entryField('Time', _controllerdescription),
-            TextButton(
-              onPressed: () {
-                eventslist.addAll({_selectedDay!:[Event(eventname: _controllername.text, time: _controllerdescription.text)]});
-                Navigator.of(context).pop();
-                _selectedEvents.value = _getEventsForDay(_selectedDay!);
-              },
-              child: const Text("Add event"),
+            const SizedBox(height: 10),
+            const Center(
+              child: Text(
+                "Select time",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal),
+              ),
             ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Zavře nové okno
-              },
-              child: const Text("Close"),
-            ),
+            const SizedBox(height: 10),
+            const WidgetTimePicker(),
+            const SizedBox(height: 30),
+            Row(
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text(
+                    "Close",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.normal),
+                  ),
+                ),
+                const Spacer(),
+                ElevatedButton(
+                  onPressed: () {
+                    final List<Event> eventsForDay =
+                        eventslist[_selectedDay!] ?? [];
+
+                    eventsForDay.add(Event(
+                      eventname: _controllername.text,
+                      time: chosen_time.format(context),
+                    ));
+
+                    eventslist[_selectedDay!] = eventsForDay;
+
+                    Navigator.of(context).pop();
+                    _selectedEvents.value = _getEventsForDay(_selectedDay!);
+                  },
+                  child: const Text(
+                    "Add event",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.normal),
+                  ),
+                ),
+              ],
+            )
           ],
         );
       },
@@ -142,7 +175,6 @@ class TableEventsState extends State<TableEvents> {
       _rangeSelectionMode = RangeSelectionMode.toggledOn;
     });
 
-    // `start` or `end` could be null
     if (start != null && end != null) {
       _selectedEvents.value = _getEventsForRange(start, end);
     } else if (start != null) {
@@ -156,53 +188,64 @@ class TableEventsState extends State<TableEvents> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: _button(),
-      body: Column(children: [TableCalendar<Event>(
-      firstDay: DateTime.utc(2018, 1, 1),
-      lastDay: DateTime.utc(2035, 12, 12),
-      focusedDay: _focusedDay,
-      selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-      rangeStartDay: _rangeStart,
-      rangeEndDay: _rangeEnd,
-      headerStyle: HeaderStyle(formatButtonVisible: false, titleCentered: true),
-      calendarFormat: _calendarFormat,
-      rangeSelectionMode: _rangeSelectionMode,
-      eventLoader: _getEventsForDay,
-      startingDayOfWeek: StartingDayOfWeek.monday,
-      calendarStyle: const CalendarStyle(
-        outsideDaysVisible: false,
+      body: Column(
+        children: [
+          TableCalendar<Event>(
+            firstDay: DateTime.utc(2018, 1, 1),
+            lastDay: DateTime.utc(2035, 12, 12),
+            focusedDay: _focusedDay,
+            selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+            rangeStartDay: _rangeStart,
+            rangeEndDay: _rangeEnd,
+            headerStyle:
+                HeaderStyle(formatButtonVisible: false, titleCentered: true),
+            calendarFormat: _calendarFormat,
+            rangeSelectionMode: _rangeSelectionMode,
+            eventLoader: _getEventsForDay,
+            startingDayOfWeek: StartingDayOfWeek.monday,
+            calendarStyle: const CalendarStyle(
+              outsideDaysVisible: false,
+            ),
+            onDaySelected: _onDaySelected,
+            onRangeSelected: _onRangeSelected,
+            onFormatChanged: (format) {
+              if (_calendarFormat != format) {
+                setState(() {
+                  _calendarFormat = format;
+                });
+              }
+            },
+            onPageChanged: (focusedDay) {
+              _focusedDay = focusedDay;
+            },
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Expanded(
+            child: ValueListenableBuilder(
+                valueListenable: _selectedEvents,
+                builder: (context, value, _) {
+                  return ListView.builder(
+                      itemCount: value.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          margin:
+                              EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                          decoration: BoxDecoration(
+                              border: Border.all(),
+                              borderRadius: BorderRadius.circular(12)),
+                          child: ListTile(
+                            onTap: () => print(""),
+                            title: Text(
+                                'Event: ${value[index].eventname}     Time:${value[index].time}'),
+                          ),
+                        );
+                      });
+                }),
+          )
+        ],
       ),
-      onDaySelected: _onDaySelected,
-      onRangeSelected: _onRangeSelected,
-      onFormatChanged: (format) {
-        if (_calendarFormat != format) {
-          setState(() {
-            _calendarFormat = format;
-          });
-        }
-      },
-      onPageChanged: (focusedDay) {
-        _focusedDay = focusedDay;
-      },
-    ),
-    const SizedBox(height: 10,),
-    Expanded(
-      child: 
-        ValueListenableBuilder(valueListenable: _selectedEvents, builder: (context, value,_){
-          return ListView.builder(itemCount: value.length,itemBuilder: (context, index)
-          {
-            return Container(
-              margin: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-              decoration: BoxDecoration(border: Border.all(), borderRadius: BorderRadius.circular(12)),
-              child: ListTile(onTap: () => print(""),
-                title: Text('Time:${value[index].time} Event: ${value[index].eventname}'),
-              ),
-            );
-          });
-        }),
-
-    )
-    ],
-    ),
     );
   }
 }

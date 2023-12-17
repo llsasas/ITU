@@ -17,7 +17,7 @@ class SpotDescription extends StatelessWidget {
           style: TextStyle(
             fontWeight: FontWeight.normal,
             fontSize: 25.0,
-            color: const Color.fromRGBO(238, 230, 230, 1),
+            color: Color.fromRGBO(238, 230, 230, 1),
           ),
         ),
         centerTitle: true,

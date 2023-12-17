@@ -5,7 +5,8 @@ import 'package:ituapp/BE/location_services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ituapp/BE/mapmarkers.dart';
 import 'package:ituapp/BE/spots.dart';
-
+import 'package:ituapp/Widgets/dropdownlevel.dart';
+import 'package:ituapp/Widgets/spotform.dart';
 class MapSample extends StatefulWidget {
   @override
   State<MapSample> createState() => MapSampleState();
@@ -28,14 +29,16 @@ class MapSampleState extends State<MapSample> {
 
     //_setMarker(const LatLng(37.42796133580664, -122.085749655962));
   }
-
   Widget _entryField(
     String title,
     TextEditingController controller,
   ) {
-    return TextField(
-      controller: controller,
-      decoration: InputDecoration(labelText: title),
+    return Container(
+      width: 200,
+      child: TextField(
+        controller: controller,
+        decoration: InputDecoration(labelText: title),
+      ),
     );
   }
 
@@ -44,39 +47,64 @@ class MapSampleState extends State<MapSample> {
       mapmarkerslist.add(
         Marker(
           markerId: const MarkerId("marker"),
-          infoWindow: InfoWindow(title: name, snippet: "Description: $description"),
+          infoWindow:
+              InfoWindow(title: name, snippet: "Description: $description"),
           position: point,
         ),
       );
     });
   }
 
-  void _addnewspotmap(BuildContext context,LatLng point) {
+  void _addnewspotmap(BuildContext context, LatLng point) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return SimpleDialog(
-          title: const Text("Add event"),
-          // contentPadding: const EdgeInsets.all(200.0),
+          contentPadding: const EdgeInsets.all(50.0),
           children: <Widget>[
             _entryField('Name', _controllername),
+            const SizedBox(height: 10),
             _entryField('Adress', _controlleraddress),
+            const SizedBox(height: 10),
             _entryField('Description', _controllerdescription),
-            TextButton(
-              onPressed: () {
-                // Zde můžete definovat akci po stisknutí tlačítka v novém okně
-                spotslist.add(Spot(name: _controllername.text, address: _controlleraddress.text, description: _controllerdescription.text, level: 3));
-                _setMarker(point, _controllername.text, _controllerdescription.text);
-                Navigator.of(context).pop(); // Zavře nové okno
-              },
-              child: const Text("Add spot"),
-            ),
-            TextButton(
-              onPressed: () {
-                // Zde můžete definovat akci po stisknutí tlačítka v novém okně
-                Navigator.of(context).pop(); // Zavře nové okno
-              },
-              child: const Text("Close"),
+            const SizedBox(height: 10),
+            DropDownLevel(),
+            const SizedBox(height: 30),
+            Row(
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text(
+                    "Close",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.normal),
+                  ),
+                ),
+                const Spacer(),
+                ElevatedButton(
+                  onPressed: () {
+                    spotslist.add(Spot(
+                        name: _controllername.text,
+                        address: _controlleraddress.text,
+                        description: _controllerdescription.text,
+                        level: dropvalue));
+                    _setMarker(point, _controllername.text,
+                        _controllerdescription.text);
+                    Navigator.of(context).pop(); 
+                  },
+                  child: const Text(
+                    "Add spot",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.normal),
+                  ),
+                ),
+              ],
             ),
           ],
         );
@@ -124,7 +152,10 @@ class MapSampleState extends State<MapSample> {
                   children: [
                     TextFormField(
                       controller: _originController,
-                      decoration: const InputDecoration(hintText: 'Search', hintStyle: TextStyle(fontSize: 20, color: Colors.black),),
+                      decoration: const InputDecoration(
+                        hintText: 'Search',
+                        hintStyle: TextStyle(fontSize: 20, color: Colors.black),
+                      ),
                       onChanged: (value) {
                         print(value);
                       },
@@ -138,7 +169,11 @@ class MapSampleState extends State<MapSample> {
                       await LocationService().getPlace(_originController.text);
                   _goToPlace(place);
                 },
-                icon: const Icon(Icons.search, color: Colors.black,size: 30,),
+                icon: const Icon(
+                  Icons.search,
+                  color: Colors.black,
+                  size: 30,
+                ),
               ),
             ],
           ),

@@ -59,9 +59,9 @@ class ProfilePage extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text("John Doe"),
+                    const Text("John Doe"),
                     Text(email),
-                    Text("status")
+                    const Text("status")
                   ],
                 ),
                 const Spacer(),
