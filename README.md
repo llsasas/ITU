@@ -15,20 +15,20 @@ Tento apk file si ale po vygenerování může kdokoliv nahrát na svoje Android
 
 ***Flutter:***
 
-Odkaz: https://github.com/flutter/flutter
+Odkaz: https://github.com/flutter/flutter<br>
 Licence: Flutter používá vlastní licenci, která umožňuje široké použití a modifikace.
 
 ***Firebase***
 
-Odkaz: https://github.com/firebase
+Odkaz: https://github.com/firebase<br>
 Licence: Firebase balíčky pro Flutter jsou poskytovány pod různými licencemi (Apache License 2.0, MIT, BSD, atd.)
 
 ***File Picker***
 
-Odkaz: https://github.com/miguelpruivo/flutter_file_picker
+Odkaz: https://github.com/miguelpruivo/flutter_file_picker<br>
 Licence: MIT Licence
 
 ***Table Calendar***
 
-Odkaz: https://github.com/aleksanderwozniak/table_calendar
+Odkaz: https://github.com/aleksanderwozniak/table_calendar<br>
 Licence: MIT Licence
