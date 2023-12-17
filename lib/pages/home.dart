@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ituapp/pages/googlemaps.dart';
 import 'package:ituapp/pages/profile_page.dart';
-import 'package:ituapp/pages/storage_handler.dart';
+import 'package:ituapp/BE/storage_handler.dart';
 import 'package:ituapp/Widgets/calendar.dart';
 import 'package:ituapp/auth.dart';
 import 'package:ituapp/pages/chat.dart';

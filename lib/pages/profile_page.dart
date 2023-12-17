@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ituapp/pages/friends.dart';
 import 'package:ituapp/pages/personal_informations.dart';
-import 'package:ituapp/pages/storage_handler.dart';
+import 'package:ituapp/BE/storage_handler.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ituapp/auth.dart';

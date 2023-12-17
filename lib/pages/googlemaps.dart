@@ -126,13 +126,25 @@ class MapSampleState extends State<MapSample> {
                 Navigator.of(context).pop();
                 _addnewspotmap(context, point);
               },
-              child: Text('Yes'),
+              child: const Text(
+                    "Yes",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.normal),
+                  ),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('No'),
+              child: const Text(
+                    "No",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.normal),
+                  ),
             ),
           ],
         );

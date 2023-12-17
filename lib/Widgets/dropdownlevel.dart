@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ituapp/Widgets/spotform.dart';
 
 class DropDownLevel extends StatefulWidget {
@@ -17,7 +18,9 @@ class _DropDownLevelState extends State<DropDownLevel> {
       width: 200,
       child: DropdownButton(
         value: dropdownvalue,
-        icon: Icon(Icons.circle),
+        elevation: 0,
+        icon: CircleAvatar(radius: 12,
+         backgroundColor: dropdownvalue == "HARD" ? Colors.red : dropdownvalue == "INTERMEDIATE" ? Colors.orange : Colors.green,),
         style: TextStyle(color: Colors.black, fontSize: 16),
         items: const [
           DropdownMenuItem<String>(

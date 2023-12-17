@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ituapp/BE/spots.dart';
-import 'package:ituapp/pages/storage_handler.dart';
+import 'package:ituapp/BE/storage_handler.dart';
 
 class SpotDescription extends StatelessWidget {
   final Spot spot;

@@ -113,22 +113,6 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
               color: Colors.white,
               child: Row(
                 children: <Widget>[
-                  GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      height: 30,
-                      width: 30,
-                      decoration: BoxDecoration(
-                        color: Colors.redAccent.shade700,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: const Icon(
-                        Icons.add,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-                    ),
-                  ),
                   const SizedBox(
                     width: 15,
                   ),

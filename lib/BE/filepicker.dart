@@ -1,6 +1,6 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:ituapp/pages/storage_handler.dart';
+import 'package:ituapp/BE/storage_handler.dart';
 
 class FilePickerButton extends StatelessWidget {
   const FilePickerButton({super.key});
