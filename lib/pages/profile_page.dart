@@ -17,7 +17,11 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final Storage storage = Storage();
     final User? user = Auth().currentUser;
-    
+    String email = "";
+    String displayName = "";
+    String status = "";
+    user == null || user.email == null ? email = "" : email = user.email!;
+    user == null || user.displayName == null ? displayName ="" : displayName = user.displayName!;
     
     return Scaffold(
       backgroundColor: const Color.fromRGBO(238, 230, 230, 1),
@@ -36,7 +40,7 @@ class ProfilePage extends StatelessWidget {
               children: <Widget>[
                 const Spacer(),
                 FutureBuilder<String>(
-                  future: (user == null) || (user.photoURL == null) ? storage.downloadUrl("user.png") : Future.value(user.photoURL),
+                  future: (user == null) || (user.photoURL == null) ? storage.downloadUrl("user.png") : storage.downloadUrl(user.email!),
                   builder: (BuildContext context, AsyncSnapshot <String> snapshot) {
                     if(snapshot.connectionState == ConnectionState.waiting){
                       return const CircularProgressIndicator();
@@ -52,11 +56,11 @@ class ProfilePage extends StatelessWidget {
                   }
                   ),
                 const Spacer(),
-                const Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text("John Doe"),
-                    Text("john.doe@gmail.com"),
+                    Text(email),
                     Text("status")
                   ],
                 ),

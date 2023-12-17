@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,15 +17,19 @@ class PersonalInformation extends StatefulWidget{
 
 
 class _PersonalInformationState extends State<PersonalInformation> {
-
   
   final ImagePicker _imagePicker = ImagePicker();
+  
 
   @override
   Widget build(BuildContext context) {
     
     final Storage storage = Storage();
     final User? user = Auth().currentUser;
+    String email = "";
+    String displayName = "";
+    user == null || user.email == null ? email = "" : email = user.email!;
+    user == null || user.displayName == null ? displayName ="" : displayName = user.displayName!;
     return Scaffold(
       backgroundColor: Color.fromRGBO(238, 230, 230, 1),
       appBar: AppBar(title: Text("Osobní údaje"), centerTitle: true, backgroundColor: Colors.red.shade700, ),
@@ -38,7 +41,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                  FutureBuilder<String>(
-                    future: (user == null) || (user.photoURL == null) ? storage.downloadUrl("user.png") : Future.value(user.photoURL),
+                    future: (user == null) || (user.photoURL == null) ? storage.downloadUrl("user.png") : storage.downloadUrl(user.email!),
                     builder: (BuildContext context, AsyncSnapshot <String> snapshot) {
                       if(snapshot.connectionState == ConnectionState.waiting){
                         return const CircularProgressIndicator();
@@ -63,19 +66,37 @@ class _PersonalInformationState extends State<PersonalInformation> {
             
             Row(
               children: [
-                Text("Zobrazené jméno:")
+                SizedBox(
+                  width: 250,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: displayName,
+                      helperText: "Uživatelské jméno"
+                      ),
+                  ),
+                )
               ],
             ),
             
             Row(
               children: [
-                Text("Email:")
+                SizedBox(
+                  width: 250,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: email,
+                      helperText: "Email"
+                      ),
+                  ),
+                )
               ],
             ),
             
             Row(
               children: [
-                Text("Jméno:")
+                Text("Jméno:"),
               ],
             )
 
@@ -123,10 +144,11 @@ class _PersonalInformationState extends State<PersonalInformation> {
 
   void takePhoto(ImageSource source) async{
     final pickedFile = await _imagePicker.pickImage(source: source);
+    //String fileName = pickedFile!.name;
     if (pickedFile == null) return;
     setState(() {
-      Storage().uploadFile(pickedFile.path, pickedFile.name);
-      Auth().currentUser!.updatePhotoURL(Storage().downloadUrl(pickedFile.name).toString());
+      Storage().uploadFile(pickedFile.path, Auth().currentUser!.email! );
+      Auth().currentUser!.updatePhotoURL('gs://itu-6f4f6.appspot.com/');
       
     });
   }
