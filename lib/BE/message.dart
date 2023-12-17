@@ -1,3 +1,8 @@
+/*
+  Author: Jan Hranička - xhrani03
+  Date: December 17, 2023
+  Description: This is a Flutter source file for Class representing chat users, BE
+*/
 class Message{
   String content;
   String type;

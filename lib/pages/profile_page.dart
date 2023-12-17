@@ -1,5 +1,9 @@
+/*
+  Author: Ondra Potoček - xpotoc08
+  Date: December 17, 2023
+  Description: This is a Flutter source file for Class representing profile page
+*/
 import 'package:flutter/material.dart';
-import 'package:ituapp/pages/friends.dart';
 import 'package:ituapp/pages/personal_informations.dart';
 import 'package:ituapp/BE/storage_handler.dart';
 import 'package:cached_network_image/cached_network_image.dart';

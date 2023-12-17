@@ -1,3 +1,8 @@
+/*
+  Author: Jan Hranička - xhrani03
+  Date: December 17, 2023
+  Description: This is a Flutter source file representing custom button widget for adding photos o a spot
+*/
 import 'package:flutter/material.dart';
 import 'package:ituapp/BE/storage_handler.dart';
 import 'package:ituapp/Widgets/filepicker.dart';

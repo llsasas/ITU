@@ -1,3 +1,7 @@
+/*
+  Author: Ondra Potoček - xpotoc08
+  Date: December 17, 2023
+*/
 import 'package:flutter/material.dart';
 import 'package:ituapp/widget_tree.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -26,7 +30,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.orange,
+        primarySwatch: Colors.red,
       ),
       home: const WidgetTree(),
     );

@@ -1,4 +1,8 @@
-//import 'dart::io';
+/*
+  Author: Samuel Čus - xcussa00
+  Date: December 17, 2023
+  Description: This is a Flutter source file for BE functionality, Firebase storage
+*/
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;

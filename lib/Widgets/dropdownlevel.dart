@@ -1,5 +1,9 @@
+/*
+  Author: Samuel Čus - xcussa00
+  Date: December 17, 2023
+  Description: This is a Flutter source file representing custom dropdownform widget
+*/
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ituapp/Widgets/spotform.dart';
 
 class DropDownLevel extends StatefulWidget {

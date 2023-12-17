@@ -1,3 +1,8 @@
+/*
+  Author: Samuel Čus - xcussa00
+  Date: December 17, 2023
+  Description: This is a Flutter source file representing filepicker widget
+*/
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:ituapp/BE/storage_handler.dart';

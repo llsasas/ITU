@@ -1,7 +1,8 @@
-/**
- * 
- * */ 
-
+/*
+  Author: Ondra Potoček - xpotoc08
+  Date: December 17, 2023
+  Description: This is a Flutter source file for Class representing personal informations
+*/
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

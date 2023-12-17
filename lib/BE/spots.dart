@@ -1,3 +1,8 @@
+/*
+  Author: Jan Hranička - xhrani03
+  Date: December 17, 2023
+  Description: This is a Flutter source file for Class representing spots, BE
+*/
 const String desc =
     "In laoreet, magna id viverra tincidunt, sem odio bibendum justo, vel imperdiet sapien wisi sed libero. Pellentesque ipsum.";
 

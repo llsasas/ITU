@@ -1,3 +1,8 @@
+/*
+  Author: Jan Hranička - xhrani03
+  Date: December 17, 2023
+  Description: This is a Flutter source file implementing Auth classed used for authentisation
+*/
 import 'package:firebase_auth/firebase_auth.dart';
 
 class Auth

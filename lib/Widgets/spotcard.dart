@@ -1,3 +1,8 @@
+/*
+  Author: Jan Hranička  - xhrani03, Ondra Potoček
+  Date: December 17, 2023
+  Description: This is a Flutter source file representing spotcard of each spot
+*/
 import 'package:flutter/material.dart';
 import 'package:ituapp/BE/storage_handler.dart';
 import 'package:ituapp/pages/spotDescription.dart';

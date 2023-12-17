@@ -1,3 +1,8 @@
+/*
+  Author: Jan Hranička - xhrani03
+  Date: December 17, 2023
+  Description: This is a Flutter source file representing registration/login UI
+*/
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ituapp/BE/Users.dart';

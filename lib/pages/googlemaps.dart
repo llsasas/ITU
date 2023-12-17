@@ -1,5 +1,9 @@
+/*
+  Author: Samuel Čus - xhrani03
+  Date: December 17, 2023
+  Description: This is a Flutter source file representing maps UI
+*/
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:ituapp/BE/location_services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';

@@ -1,3 +1,7 @@
+/*
+  Author: Jan Hranička - xhrani03
+  Date: December 17, 2023
+*/
 import 'package:flutter/material.dart';
 import 'package:ituapp/pages/register_page.dart';
 import 'package:ituapp/pages/home.dart';

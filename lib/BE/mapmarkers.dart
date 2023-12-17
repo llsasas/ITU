@@ -1,3 +1,8 @@
+/*
+  Author: Samuel Čus - xcussa00
+  Date: December 17, 2023
+  Description: This is a Flutter source file for Class representing Map markers, BE
+*/
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 const String desc = "In laoreet, magna id viverra tincidunt, sem odio bibendum justo, vel imperdiet sapien wisi sed libero. Pellentesque ipsum. Aenean id metus id velit ullamcorper pulvinar. Mauris metus. Donec iaculis gravida nulla. Nunc dapibus tortor vel mi dapibus sollicitudin. Et harum quidem rerum facilis est et expedita distinctio. Integer imperdiet lectus quis justo. In enim a arcu imperdiet malesuada. In rutrum.";

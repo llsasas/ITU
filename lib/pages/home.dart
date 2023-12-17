@@ -1,3 +1,8 @@
+/*
+  Author: Samuel Čus - xcussa00, Jan Hranička - xhrani03
+  Date: December 17, 2023
+  Description: This is a Flutter source file representing homepage UI
+*/
 import 'package:flutter/material.dart';
 import 'package:ituapp/pages/googlemaps.dart';
 import 'package:ituapp/pages/profile_page.dart';

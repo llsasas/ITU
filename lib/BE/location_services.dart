@@ -1,3 +1,8 @@
+/*
+  Author: Samuel Čus - xcussa00
+  Date: December 17, 2023
+  Description: This is a Flutter source file for map functionality
+*/
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
