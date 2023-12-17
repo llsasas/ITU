@@ -23,6 +23,10 @@ class _LoginPageState extends State<LoginPage> {
     try {
       await Auth().signInWithEmailAndPassword(
           email: _controllerEmail.text, password: _controllerPassword.text);
+      User? user = FirebaseAuth.instance.currentUser;
+
+      await user?.updateDisplayName(_controllerUsername.text);
+
     } on FirebaseAuthException catch (e) {
       setState(() {
         errorMessage = e.message;
@@ -34,6 +38,12 @@ class _LoginPageState extends State<LoginPage> {
     try {
       await Auth().createUserWithEmailAndPassword(
           email: _controllerEmail.text, password: _controllerPassword.text);
+
+      User? user = FirebaseAuth.instance.currentUser;
+
+      await user?.updateDisplayName(_controllerUsername.text);
+
+      
     } on FirebaseAuthException catch (e) {
       setState(() {
         errorMessage = e.message;
@@ -76,6 +86,7 @@ class _LoginPageState extends State<LoginPage> {
           } else {
             createUserWithEmailAndPassword();
             add_userinfo();
+            
           }
         },
         child: Text(isLogin ? 'Login' : 'Register'));

@@ -1,4 +1,7 @@
-// ignore: unused_import
+/**
+ * 
+ * */ 
+
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -67,39 +70,49 @@ class _PersonalInformationState extends State<PersonalInformation> {
             
             Row(
               children: [
-                SizedBox(
-                  width: 250,
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      labelText: displayName,
-                      helperText: "Uživatelské jméno"
-                      ),
-                  ),
-                )
+                Container(
+                  decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                  child:Column(
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(
+                              width: 250,
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  fillColor: Colors.white,
+                                  border: const OutlineInputBorder(),
+                                  labelText: displayName,
+                                  helperText: "Uživatelské jméno"
+                                  ),
+                              ),
+                            )
+                          ],
+                        ),
+                        
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            SizedBox(
+                              
+                              width: 250,
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  fillColor: Colors.white,
+                                  border: const OutlineInputBorder(),
+                                  labelText: email,
+                                  helperText: "Email"
+                                  ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                ),
               ],
             ),
-            
-            Row(
-              children: [
-                SizedBox(
-                  width: 250,
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      labelText: email,
-                      helperText: "Email"
-                      ),
-                  ),
-                )
-              ],
-            ),
-            
-            const Row(
-              children: [
-                Text("Jméno:"),
-              ],
-            )
 
           ],
         ),
