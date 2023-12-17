@@ -17,15 +17,12 @@ class ModifySpotButton extends StatelessWidget {
         // Předávání parametru Spot do funkce pro otevření nového okna
         _openNewWindow(context, spot);
       },
-      color: Colors.red,
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(Colors.red),
-      ),
+      tooltip: "Add photo",
       padding: const EdgeInsets.all(15.0),
       icon: const Icon(
         Icons.add_sharp,
         size: 25.0,
-        color: Colors.white,
+        color: Colors.red,
       ),
     );
   }
@@ -58,8 +55,7 @@ class ModifySpotButton extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     spot.picturelinks.add("${spot.name}/$nametopass");
-                    storage.uploadFile(
-                        pathtopass, "${spot.name}/$nametopass");
+                    storage.uploadFile(pathtopass, "${spot.name}/$nametopass");
                     nametopass = '';
                     pathtopass = '';
                     Navigator.of(context).pop();
