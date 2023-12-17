@@ -95,7 +95,7 @@ class MapSampleState extends State<MapSample> {
                         name: _controllername.text,
                         address: _controlleraddress.text,
                         description: _controllerdescription.text,
-                        level: dropvalue, picturelinks: nametopass != '' ? ["${_controllername.text}/$nametopass"] : []));
+                        level: dropvalue, picturelinks: nametopass != '' ? [nametopass] : []));
                         storage.uploadFile(pathtopass, "${_controllername.text}/$nametopass");
                         nametopass = '';
                         pathtopass = '';
