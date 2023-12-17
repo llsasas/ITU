@@ -65,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _errorMessage() {
-    return Text(errorMessage == '' ? '' : 'Humm ? $errorMessage');
+    return Text(errorMessage == '' ? '' : '$errorMessage');
   }
 
   Widget _submitButton() {
@@ -83,6 +83,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _loginOrRegister() {
     return TextButton(
+        style: ButtonStyle(backgroundColor: Colors.white),
         onPressed: () {
           setState(() {
             isLogin = !isLogin;
@@ -90,7 +91,8 @@ class _LoginPageState extends State<LoginPage> {
         },
         // ignore: prefer_const_constructors
         //style: ButtonStyle(backgroundColor: Colors.red),
-        child: Text(isLogin! ? 'Register instead' : 'Login instead'),
+        child: Text(isLogin! ? 'Register instead' : 'Login instead',
+         style:TextStyle(color: Colors.black) ,),
         );
   }
 
