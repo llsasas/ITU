@@ -26,106 +26,85 @@ class ProfilePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(238, 230, 230, 1),
       
-      body: Container(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: <Widget>[
-            
-            const Padding(
-              padding:  EdgeInsets.all(10.0),
-              child:  Row(children: [Text("Můj profil")],),
-            ),
-            
-            Row(
-              children: <Widget>[
-                const Spacer(),
-                FutureBuilder<String>(
-                  future: (user == null) || (user.photoURL == null) ? storage.downloadUrl("user.png") : storage.downloadUrl(user.email!),
-                  builder: (BuildContext context, AsyncSnapshot <String> snapshot) {
-                    if(snapshot.connectionState == ConnectionState.waiting){
-                      return const CircularProgressIndicator();
-                    }else if(snapshot.hasError){
-                      return Text("Error: ${snapshot.error}");
-                    }else{
-                      return CircleAvatar(
-                        radius: 50.0,
-                        backgroundColor: Colors.white,
-                        backgroundImage: CachedNetworkImageProvider(snapshot.data!)
-                      );
+      body: Center(
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: <Widget>[
+              
+              const Padding(
+                padding:  EdgeInsets.all(10.0),
+                child:  Row(children: [Text("Můj profil", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),)],),
+              ),
+              
+              Row(
+                children: <Widget>[
+                  const Spacer(),
+                  FutureBuilder<String>(
+                    future: (user == null) || (user.photoURL == null) ? storage.downloadUrl("user.png") : storage.downloadUrl(user.email!),
+                    builder: (BuildContext context, AsyncSnapshot <String> snapshot) {
+                      if(snapshot.connectionState == ConnectionState.waiting){
+                        return const CircularProgressIndicator();
+                      }else if(snapshot.hasError){
+                        return Text("Error: ${snapshot.error}");
+                      }else{
+                        return CircleAvatar(
+                          radius: 50.0,
+                          backgroundColor: Colors.white,
+                          backgroundImage: CachedNetworkImageProvider(snapshot.data!)
+                        );
+                      }
                     }
-                  }
+                    ),
+                  const Spacer(),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(displayName, style: TextStyle(fontSize: 18),),
+                      Text(email, style: TextStyle(fontSize: 18)),
+                    ],
                   ),
-                const Spacer(),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(displayName),
-                    Text(email),
-                    const Text("status")
-                  ],
-                ),
-                const Spacer(),
-              ],
-            ),
-            
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                   children: <Widget>[
-                    Card(
-                      child: InkWell(
-                        onTap:() {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalInformation()));
-                        },
-                        child: Container(
-                          width: 300,
-                          height: 100,
-                          decoration: const BoxDecoration(color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(20))),
-                          child: const Row(
-                            children: <Widget>[
-                                Spacer(),
-                                Icon(Icons.person),
-                                Spacer(),
-                                Text("Spravovat osobní údaje"),
-                                Spacer(),
-                                Icon(Icons.arrow_right_alt_rounded),
-                                Spacer()
-                              ]
+                  const Spacer(),
+                ],
+              ),
+              
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                     children: <Widget>[
+                      Card(
+                        child: InkWell(
+                          onTap:() {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalInformation()));
+                          },
+                          child: Container(
+                            width: 300,
+                            height: 100,
+                            decoration: const BoxDecoration(color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(20))),
+                            child: const Row(
+                              children: <Widget>[
+                                  Spacer(),
+                                  Icon(Icons.person),
+                                  Spacer(),
+                                  Text("Spravovat osobní údaje", style: TextStyle(fontSize: 14),),
+                                  Spacer(),
+                                  Icon(Icons.arrow_right_alt_rounded),
+                                  Spacer()
+                                ]
+                              ),
                             ),
-                          ),
+                        ),
                       ),
-                    ),
-                     Card(
-                      child: InkWell(
-                        onTap:() {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => Friends()));
-                        },
-                        child: Container(
-                          width: 300,
-                          height: 100,
-                          decoration: const BoxDecoration(color: Colors.white,borderRadius: BorderRadius.all(Radius.circular(20))),
-                          child: const Row(
-                            children: [
-                              Spacer(),
-                              Icon(Icons.group),
-                              Spacer(),
-                              Text("Přátelé"),
-                              Spacer(),
-                              Icon(Icons.arrow_right_alt_rounded),
-                              Spacer()
-                            ],
-                          ),
-                          ),
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-            
-          ],
+                       
+                    ],
+                  )
+                ],
+              ),
+              
+            ],
+          ),
         ),
       )
     );
