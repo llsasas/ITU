@@ -32,6 +32,9 @@ class _PersonalInformationState extends State<PersonalInformation> {
     final User? user = Auth().currentUser;
     String email = "";
     String displayName = "";
+    String newEmail = "";
+    String newDisplayName = "";
+    
     user == null || user.email == null ? email = "" : email = user.email!;
     user == null || user.displayName == null ? displayName ="" : displayName = user.displayName!;
     return Scaffold(
@@ -69,23 +72,30 @@ class _PersonalInformationState extends State<PersonalInformation> {
             ),
             
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
+                  padding: EdgeInsets.all(20),
                   decoration: const BoxDecoration(color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(20.0))),
                   child:Column(
                       children: <Widget>[
+                        
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            SizedBox(
-                              width: 250,
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  border: const OutlineInputBorder(),
-                                  labelText: displayName,
-                                  helperText: "Uživatelské jméno"
-                                  ),
+                            Container(
+                              margin: EdgeInsets.all(5),
+                              child: SizedBox(
+                                width: 250,
+                                child: TextField(
+                                  onChanged: (input) => newDisplayName = input,
+                                  decoration: InputDecoration(
+                                    fillColor: Colors.white,
+                                    border: const OutlineInputBorder(),
+                                    labelText: displayName,
+                                    prefix: Text("Uživatelské jméno: ")
+                                    ),
+                                ),
                               ),
                             )
                           ],
@@ -94,25 +104,45 @@ class _PersonalInformationState extends State<PersonalInformation> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            SizedBox(
-                              
-                              width: 250,
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  fillColor: Colors.white,
-                                  border: const OutlineInputBorder(),
-                                  labelText: email,
-                                  helperText: "Email"
-                                  ),
+                            Container(
+                              margin: EdgeInsets.all(5),
+                              child: SizedBox(
+                                width: 250,
+                                child: TextField(
+                                  onChanged: (input) => newEmail = input,
+                                  decoration: InputDecoration(
+                                    fillColor: Colors.white,
+                                    border: const OutlineInputBorder(),
+                                    labelText: email,
+                                    prefix: Text("Email: ")
+                                    ),
+                                ),
                               ),
                             )
                           ],
                         ),
+                        
                       ],
                     ),
                 ),
               ],
             ),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    margin: EdgeInsets.all(10),
+                    child: TextButton(
+                      child: Text("Uložit nové údaje"), onPressed: () {
+                      Auth().currentUser!.updateDisplayName(newDisplayName);
+                      Auth().currentUser!.updateEmail(newEmail);
+                      },
+                      
+                    ),
+                  ),
+                )
+              ],
+            )
 
           ],
         ),
